@@ -5,6 +5,8 @@ import Movie from "./components/Movie";
 
 import styled from "styled-components";
 
+import { connect } from "react-redux";
+
 const Ul = styled.ul`
   list-style: none;
 
@@ -54,10 +56,17 @@ class App extends Component {
 
   render() {
     const { movies } = this.state;
-    console.log(movies);
+    // console.log(movies);
+    console.log(this.props.movies);
 
     return <div>{this.renderMovies(movies)}</div>;
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    movies: state.movies
+  };
+};
+
+export default connect(mapStateToProps)(App);
