@@ -1,27 +1,44 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+
+import { API } from "./constants";
+import Movie from "./components/Movie";
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+  state = {
+    isLoading: true,
+    movies: []
+  };
+
+  getMovies() {
+    fetch(API)
+      .then(response => response.json())
+      .then(data => this.setState({ movies: data.results, isLoading: false }))
+      .catch(function(error) {
+        console.log(error);
+      });
+  }
+
+  renderMovies(movies) {
+    return movies && movies.length ? (
+      <ul>
+        {movies.map(movie => (
+          <Movie key={movie.id} movie={movie} />
+        ))}
+      </ul>
+    ) : (
+      <div>loading</div>
     );
+  }
+
+  componentDidMount() {
+    this.getMovies();
+  }
+
+  render() {
+    const { movies } = this.state;
+    console.log(movies);
+
+    return <div>{this.renderMovies(movies)}</div>;
   }
 }
 
