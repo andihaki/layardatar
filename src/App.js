@@ -3,6 +3,16 @@ import React, { Component } from "react";
 import { API } from "./constants";
 import Movie from "./components/Movie";
 
+import styled from "styled-components";
+
+const Ul = styled.ul`
+  list-style: none;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+`;
+
 class App extends Component {
   state = {
     isLoading: true,
@@ -18,13 +28,21 @@ class App extends Component {
       });
   }
 
+  clickMovieHandler = () => {
+    console.log("clicked");
+  };
+
   renderMovies(movies) {
     return movies && movies.length ? (
-      <ul>
+      <Ul>
         {movies.map(movie => (
-          <Movie key={movie.id} movie={movie} />
+          <Movie
+            key={movie.id}
+            movie={movie}
+            onClick={() => console.log(movie.id)}
+          />
         ))}
-      </ul>
+      </Ul>
     ) : (
       <div>loading</div>
     );
