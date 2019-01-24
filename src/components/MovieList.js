@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import Movie from "./Movie";
 import styled from "styled-components";
 
+import { fetchMovies } from "../redux/actions";
+
 const Ul = styled.ul`
   list-style: none;
 
@@ -12,6 +14,9 @@ const Ul = styled.ul`
 `;
 
 class MovieList extends React.Component {
+  componentDidMount() {
+    this.props.dispatch(fetchMovies());
+  }
   render() {
     const { movies } = this.props;
     return (
