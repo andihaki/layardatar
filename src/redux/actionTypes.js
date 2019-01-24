@@ -3,3 +3,5 @@ export const FETCH_MOVIES = "fetch_movies";
 export const FETCH_MOVIES_BEGIN = "FETCH_MOVIES_BEGIN";
 export const FETCH_MOVIES_SUCCESS = "FETCH_MOVIES_SUCCESS";
 export const FETCH_MOVIES_FAILURE = "FETCH_MOVIES_FAILURE";
+
+export const CHANGE_PAGE = "CHANGE_PAGE";

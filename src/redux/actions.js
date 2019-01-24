@@ -1,7 +1,8 @@
 import {
   FETCH_MOVIES_BEGIN,
   FETCH_MOVIES_SUCCESS,
-  FETCH_MOVIES_FAILURE
+  FETCH_MOVIES_FAILURE,
+  CHANGE_PAGE
 } from "./actionTypes";
 
 import { API } from "../constants";
@@ -20,6 +21,12 @@ export const fetchMoviesFailure = error => ({
   payload: { error }
 });
 
+export const changePage = activePage => ({
+  type: CHANGE_PAGE,
+  payload: { activePage }
+});
+
+// async
 export const fetchMovies = () => {
   return dispatch => {
     dispatch(fetchMoviesBegin());

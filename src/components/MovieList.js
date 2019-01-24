@@ -18,16 +18,20 @@ class MovieList extends React.Component {
     this.props.dispatch(fetchMovies());
   }
   render() {
-    const { movies, loading, error } = this.props;
+    const { movies, loading, error, currentPage, limitPage } = this.props;
     if (error) {
       return <div>Oops, ada sikomo lewat. {error.message}</div>;
     }
     if (loading) {
       return <div>Menunggu kepastian...</div>;
     }
+
+    const sliceStart = limitPage * currentPage - limitPage;
+    const sliceEnd = limitPage * currentPage;
+
     return (
       <Ul>
-        {movies.slice(0, 2).map(movie => (
+        {movies.slice(sliceStart, sliceEnd).map(movie => (
           <Movie
             key={movie.id}
             movie={movie}
@@ -40,10 +44,17 @@ class MovieList extends React.Component {
 }
 
 const mapStateToProps = state => {
+  // console.log(
+  //   state.movies.currentPage === 1
+  //     ? state.movies.currentPage - 1
+  //     : state.movies.currentPage + state.movies.limitPage - 1
+  // );
   return {
     movies: state.movies.movies,
     loading: state.movies.loading,
-    error: state.movies.error
+    error: state.movies.error,
+    currentPage: state.movies.currentPage,
+    limitPage: state.movies.limitPage
   };
 };
 
