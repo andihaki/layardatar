@@ -3,23 +3,25 @@ import { connect } from "react-redux";
 
 import { changePage } from "../redux/actions";
 
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Pagination = ({ pages, dispatch }) => {
   // console.log(pages);
   return (
+    // <Router>
     <React.Fragment>
       {pages &&
         pages.map(page => (
-          <Router>
+          // <button key={page} onClick={() => dispatch(changePage(page))}>
+          <Link to={{ pathname: "/", search: `?page=${page}` }}>
             <button key={page} onClick={() => dispatch(changePage(page))}>
-              <Link to={{ pathname: "/", search: `?page=${page}` }}>
-                {page}
-              </Link>
+              {page}
             </button>
-          </Router>
+          </Link>
+          // </button>
         ))}
     </React.Fragment>
+    // </Router>
   );
 };
 
