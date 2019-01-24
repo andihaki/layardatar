@@ -18,10 +18,16 @@ class MovieList extends React.Component {
     this.props.dispatch(fetchMovies());
   }
   render() {
-    const { movies } = this.props;
+    const { movies, loading, error } = this.props;
+    if (error) {
+      return <div>Oops, ada sikomo lewat. {error.message}</div>;
+    }
+    if (loading) {
+      return <div>Menunggu kepastian...</div>;
+    }
     return (
       <Ul>
-        {movies.map(movie => (
+        {movies.slice(0, 2).map(movie => (
           <Movie
             key={movie.id}
             movie={movie}
@@ -35,7 +41,9 @@ class MovieList extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    movies: state.movies.movies
+    movies: state.movies.movies,
+    loading: state.movies.loading,
+    error: state.movies.error
   };
 };
 

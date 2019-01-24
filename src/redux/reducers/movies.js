@@ -4,30 +4,13 @@ import {
   FETCH_MOVIES_FAILURE
 } from "../actionTypes";
 
-import dummy from "./dummy";
+// import dummy from "./dummy";
 
 const initialState = {
-  movies: dummy,
+  movies: [],
   loading: false,
   error: null
 };
-
-// const fetchMovies = () => {
-//   console.log("fetch movies");
-//   return dispatch => {
-//     // dispatch(fetchProductsBegin());
-//     return fetch(API)
-//       .then(response => {
-//         if (!response.ok) {
-//           throw Error(response.statusText);
-//         }
-//         return response;
-//       })
-//       .then(response => response.json())
-//       .then(data => data.results)
-//       .catch(error => console.log(error));
-//   };
-// };
 
 export default function(state = initialState, action) {
   switch (action.type) {

@@ -6,13 +6,6 @@ import {
 
 import { API } from "../constants";
 
-// export const fetchMovies = movies => ({
-//   type: FETCH_MOVIES,
-//   payload: {
-//     movies
-//   }
-// });
-
 export const fetchMoviesBegin = () => ({
   type: FETCH_MOVIES_BEGIN
 });
@@ -28,7 +21,6 @@ export const fetchMoviesFailure = error => ({
 });
 
 export const fetchMovies = () => {
-  console.log("fetch movies");
   return dispatch => {
     dispatch(fetchMoviesBegin());
     return fetch(API)
@@ -41,6 +33,7 @@ export const fetchMovies = () => {
       .then(response => response.json())
       .then(data => {
         dispatch(fetchMoviesSuccess(data.results));
+        console.log(data.results);
         return data.results;
       })
       .catch(error => dispatch(fetchMoviesFailure(error)));
