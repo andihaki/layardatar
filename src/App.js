@@ -1,72 +1,10 @@
 import React, { Component } from "react";
 
-import { API } from "./constants";
-import Movie from "./components/Movie";
-
-import styled from "styled-components";
-
-import { connect } from "react-redux";
-
-const Ul = styled.ul`
-  list-style: none;
-
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 10px;
-`;
+import MovieList from "./components/MovieList";
 
 class App extends Component {
-  state = {
-    isLoading: true,
-    movies: []
-  };
-
-  getMovies() {
-    fetch(API)
-      .then(response => response.json())
-      .then(data => this.setState({ movies: data.results, isLoading: false }))
-      .catch(function(error) {
-        console.log(error);
-      });
-  }
-
-  clickMovieHandler = () => {
-    console.log("clicked");
-  };
-
-  renderMovies(movies) {
-    return movies && movies.length ? (
-      <Ul>
-        {movies.map(movie => (
-          <Movie
-            key={movie.id}
-            movie={movie}
-            onClick={() => console.log(movie.id)}
-          />
-        ))}
-      </Ul>
-    ) : (
-      <div>loading</div>
-    );
-  }
-
-  componentDidMount() {
-    this.getMovies();
-  }
-
   render() {
-    const { movies } = this.state;
-    // console.log(movies);
-    console.log(this.props.movies);
-
-    return <div>{this.renderMovies(movies)}</div>;
+    return <MovieList />;
   }
 }
-
-const mapStateToProps = state => {
-  return {
-    movies: state.movies
-  };
-};
-
-export default connect(mapStateToProps)(App);
+export default App;
