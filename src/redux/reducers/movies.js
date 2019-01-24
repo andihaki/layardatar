@@ -45,7 +45,7 @@ export default function(state = initialState, action) {
         movies: []
       };
     case CHANGE_PAGE:
-      console.log("change page: " + action.payload.activePage);
+      // console.log("change page: " + action.payload.activePage);
       return {
         ...state,
         currentPage: action.payload.activePage

@@ -5,6 +5,8 @@ import styled from "styled-components";
 
 import { fetchMovies } from "../redux/actions";
 
+import { Route } from "react-router-dom";
+
 const Ul = styled.ul`
   list-style: none;
 
@@ -32,11 +34,16 @@ class MovieList extends React.Component {
     return (
       <Ul>
         {movies.slice(sliceStart, sliceEnd).map(movie => (
-          <Movie
+          <Route
+            to={`${movie.id}-${movie.title.replace(/ /g, "-")}`}
             key={movie.id}
-            movie={movie}
-            onClick={() => console.log(movie.id)}
-          />
+          >
+            <Movie
+              key={movie.id}
+              movie={movie}
+              onClick={() => console.log(movie.id)}
+            />
+          </Route>
         ))}
       </Ul>
     );
