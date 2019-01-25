@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import Movie from "./Movie";
 import styled from "styled-components";
 
-import { fetchMovies, movieDetail } from "../redux/actions";
+import { fetchMovies } from "../redux/actions";
 
 import { Link } from "react-router-dom";
 
@@ -23,12 +23,7 @@ class MovieList extends React.Component {
   componentDidMount() {
     this.props.movies.length || this.props.dispatch(fetchMovies());
   }
-  renderMovieDetail = title => {
-    console.log("rMD", title);
-    this.props.dispatch(movieDetail(title));
-    // return <Redirect push to="/sample" />;
-    // this.setState({ onePage: true });
-  };
+
   render() {
     const { movies, loading, error, currentPage, limitPage } = this.props;
 
@@ -44,29 +39,10 @@ class MovieList extends React.Component {
     const sliceEnd = limitPage * currentPage;
 
     return (
-      // <React.Fragment>
-      //   {this.props.movieId === "" ? (
-      //     <Ul>
-      //       {movies.slice(sliceStart, sliceEnd).map(movie => (
-      //         <Link to={movie.slug} key={movie.id}>
-      //           <Movie
-      //             movie={movie}
-      //             onClick={() => this.renderMovieDetail(movie.index)}
-      //           />
-      //         </Link>
-      //       ))}
-      //     </Ul>
-      //   ) : (
-      //     <MovieDetail title="test" />
-      //   )}
-      // </React.Fragment>
       <Ul>
         {movies.slice(sliceStart, sliceEnd).map(movie => (
           <Link to={movie.slug} key={movie.id}>
-            <Movie
-              movie={movie}
-              onClick={() => this.renderMovieDetail(movie.index)}
-            />
+            <Movie movie={movie} onClick={() => console.log(movie.index)} />
           </Link>
         ))}
       </Ul>

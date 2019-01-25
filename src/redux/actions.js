@@ -3,13 +3,27 @@ import {
   FETCH_MOVIES_SUCCESS,
   FETCH_MOVIES_FAILURE,
   CHANGE_PAGE,
-  MOVIE_DETAIL,
-  FETCH_MOVIE_CREDITS_BEGIN,
-  FETCH_MOVIE_CREDITS_SUCCESS,
-  FETCH_MOVIE_CREDITS_FAILURE
+  FETCH_CAST_BEGIN,
+  FETCH_CAST_SUCCESS,
+  FETCH_CAST_FAILURE,
+  FETCH_SIMILAR_BEGIN,
+  FETCH_SIMILAR_SUCCESS,
+  FETCH_SIMILAR_FAILURE,
+  FETCH_RECOMMENDATION_BEGIN,
+  FETCH_RECOMMENDATION_SUCCESS,
+  FETCH_RECOMMENDATION_FAILURE,
+  FETCH_REVIEWS_BEGIN,
+  FETCH_REVIEWS_SUCCESS,
+  FETCH_REVIEWS_FAILURE
 } from "./actionTypes";
 
-import { API, API_CREDIT } from "../constants";
+import {
+  API,
+  API_CAST,
+  API_SIMILAR,
+  API_RECOMMENDATION,
+  API_REVIEWS
+} from "../constants";
 
 // home page
 export const fetchMoviesBegin = () => ({
@@ -31,23 +45,63 @@ export const changePage = activePage => ({
   payload: { activePage }
 });
 
-// movie detail
-export const movieDetail = id => ({
-  type: MOVIE_DETAIL,
-  payload: { id }
+// movie CAST
+export const fetchCastBegin = () => ({
+  type: FETCH_CAST_BEGIN
 });
 
-export const fetchMovieCreditBegin = () => ({
-  type: FETCH_MOVIE_CREDITS_BEGIN
+export const fetchCastSuccess = casts => ({
+  type: FETCH_CAST_SUCCESS,
+  payload: { casts }
 });
 
-export const fetchMovieCreditSuccess = movieDetail => ({
-  type: FETCH_MOVIE_CREDITS_SUCCESS,
-  payload: { movieDetail }
+export const fetchCastFailure = error => ({
+  type: FETCH_CAST_FAILURE,
+  payload: { error }
 });
 
-export const fetchMovieCreditFailure = error => ({
-  type: FETCH_MOVIE_CREDITS_FAILURE,
+// movie SIMILAR
+export const fetchSimilarBegin = () => ({
+  type: FETCH_SIMILAR_BEGIN
+});
+
+export const fetchSimilarSuccess = similars => ({
+  type: FETCH_SIMILAR_SUCCESS,
+  payload: { similars }
+});
+
+export const fetchSimilarFailure = error => ({
+  type: FETCH_SIMILAR_FAILURE,
+  payload: { error }
+});
+
+// movie RECOMMENDATION
+export const fetchRecommendationBegin = () => ({
+  type: FETCH_RECOMMENDATION_BEGIN
+});
+
+export const fetchRecommendationSuccess = recommendations => ({
+  type: FETCH_RECOMMENDATION_SUCCESS,
+  payload: { recommendations }
+});
+
+export const fetchRecommendationFailure = error => ({
+  type: FETCH_RECOMMENDATION_FAILURE,
+  payload: { error }
+});
+
+// movie REVIEWS
+export const fetchReviewsBegin = () => ({
+  type: FETCH_REVIEWS_BEGIN
+});
+
+export const fetchReviewsSuccess = reviews => ({
+  type: FETCH_REVIEWS_SUCCESS,
+  payload: { reviews }
+});
+
+export const fetchReviewsFailure = error => ({
+  type: FETCH_REVIEWS_FAILURE,
   payload: { error }
 });
 
@@ -64,29 +118,18 @@ export const fetchMovies = () => {
       })
       .then(response => response.json())
       .then(data => {
-        data.results = data.results.map((movie, index) => {
-          const slug = `${movie.id}-${movie.title
-            .replace(/\s+/g, "-")
-            .toLowerCase()}`;
-          return {
-            ...movie,
-            slug,
-            index
-          };
-        });
         dispatch(fetchMoviesSuccess(data.results));
-        console.log(data.results);
         return data.results;
       })
       .catch(error => dispatch(fetchMoviesFailure(error)));
   };
 };
 
-export const fetchMovieCredit = movieId => {
+export const fetchCast = movieId => {
   return dispatch => {
-    dispatch(fetchMovieCreditBegin());
+    dispatch(fetchCastBegin());
 
-    return fetch(API_CREDIT.replace("credit_id", movieId))
+    return fetch(API_CAST.replace("movie_id", movieId))
       .then(response => {
         if (!response.ok) {
           throw Error(response.statusText);
@@ -95,11 +138,74 @@ export const fetchMovieCredit = movieId => {
       })
       .then(response => response.json())
       .then(data => {
-        console.log(data.cast);
-        dispatch(fetchMovieCreditSuccess(data.cast));
+        // console.log(data.cast);
+        dispatch(fetchCastSuccess(data.cast));
 
         return data.cast;
       })
-      .catch(error => dispatch(fetchMovieCreditFailure(error)));
+      .catch(error => dispatch(fetchCastFailure(error)));
+  };
+};
+export const fetchSimilar = movieId => {
+  return dispatch => {
+    dispatch(fetchSimilarBegin());
+
+    return fetch(API_SIMILAR.replace("movie_id", movieId))
+      .then(response => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+        return response;
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.results);
+        dispatch(fetchSimilarSuccess(data.results));
+
+        return data.results;
+      })
+      .catch(error => dispatch(fetchSimilarFailure(error)));
+  };
+};
+export const fetchRecommendation = movieId => {
+  return dispatch => {
+    dispatch(fetchRecommendationBegin());
+
+    return fetch(API_RECOMMENDATION.replace("movie_id", movieId))
+      .then(response => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+        return response;
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.results);
+        dispatch(fetchRecommendationSuccess(data.results));
+
+        return data.results;
+      })
+      .catch(error => dispatch(fetchRecommendationFailure(error)));
+  };
+};
+export const fetchReviews = movieId => {
+  return dispatch => {
+    dispatch(fetchReviewsBegin());
+
+    return fetch(API_REVIEWS.replace("movie_id", movieId))
+      .then(response => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+        return response;
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.result);
+        dispatch(fetchReviewsSuccess(data.result));
+
+        return data.result;
+      })
+      .catch(error => dispatch(fetchReviewsFailure(error)));
   };
 };

@@ -3,10 +3,12 @@ import {
   FETCH_MOVIES_SUCCESS,
   FETCH_MOVIES_FAILURE,
   CHANGE_PAGE,
-  MOVIE_DETAIL,
-  FETCH_MOVIE_CREDITS_BEGIN,
-  FETCH_MOVIE_CREDITS_SUCCESS,
-  FETCH_MOVIE_CREDITS_FAILURE
+  FETCH_CAST_BEGIN,
+  FETCH_CAST_SUCCESS,
+  FETCH_CAST_FAILURE,
+  FETCH_SIMILAR_BEGIN,
+  FETCH_SIMILAR_SUCCESS,
+  FETCH_SIMILAR_FAILURE
 } from "../actionTypes";
 
 // import dummy from "./dummy";
@@ -19,7 +21,8 @@ const initialState = {
   currentPage: 0,
   limitPage: 2,
   movieId: "",
-  movieDetail: []
+  casts: [],
+  similars: []
 };
 
 export default function(state = initialState, action) {
@@ -36,10 +39,21 @@ export default function(state = initialState, action) {
       )
         .fill()
         .map((_, i) => i + 1);
+      const movies = action.payload.movies.map((movie, index) => {
+        const slug = `${movie.id}-${movie.title
+          .replace(/\s+/g, "-")
+          .toLowerCase()}`;
+        return {
+          ...movie,
+          slug,
+          index
+        };
+      });
+      console.log(movies);
       return {
         ...state,
         loading: false,
-        movies: action.payload.movies,
+        movies,
         pages,
         currentPage: 1
       };
@@ -57,24 +71,34 @@ export default function(state = initialState, action) {
         currentPage: action.payload.activePage,
         movieId: ""
       };
-    case MOVIE_DETAIL:
-      // console.log("movie detail" + action.payload.id);
+    case FETCH_CAST_BEGIN:
+      return { ...state, casts: [] };
+    case FETCH_CAST_SUCCESS:
       return {
         ...state,
-        movieId: action.payload.id
+        casts: action.payload.casts
       };
-    case FETCH_MOVIE_CREDITS_BEGIN:
-      return state;
-    case FETCH_MOVIE_CREDITS_SUCCESS:
-      return {
-        ...state,
-        movieDetail: action.payload.movieDetail
-      };
-    case FETCH_MOVIE_CREDITS_FAILURE:
+    case FETCH_CAST_FAILURE:
       return {
         ...state,
         error: action.payload.error,
-        movieDetail: []
+        casts: []
+      };
+    case FETCH_SIMILAR_BEGIN:
+      return { ...state, similars: [] };
+    case FETCH_SIMILAR_SUCCESS:
+      const similars = action.payload.similars.length
+        ? action.payload.similars
+        : [{ id: 0, title: "tidak ada informasi film terkait" }];
+      return {
+        ...state,
+        similars
+      };
+    case FETCH_SIMILAR_FAILURE:
+      return {
+        ...state,
+        error: action.payload.error,
+        similars: []
       };
     default:
       return state;
