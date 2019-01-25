@@ -2,7 +2,8 @@ import {
   FETCH_MOVIES_BEGIN,
   FETCH_MOVIES_SUCCESS,
   FETCH_MOVIES_FAILURE,
-  CHANGE_PAGE
+  CHANGE_PAGE,
+  MOVIE_DETAIL
 } from "../actionTypes";
 
 // import dummy from "./dummy";
@@ -13,7 +14,8 @@ const initialState = {
   error: null,
   pages: [],
   currentPage: 0,
-  limitPage: 2
+  limitPage: 2,
+  movieId: ""
 };
 
 export default function(state = initialState, action) {
@@ -45,10 +47,17 @@ export default function(state = initialState, action) {
         movies: []
       };
     case CHANGE_PAGE:
-      console.log("change page: " + action.payload.activePage);
+      // console.log("change page: " + action.payload.activePage);
       return {
         ...state,
-        currentPage: action.payload.activePage
+        currentPage: action.payload.activePage,
+        movieId: ""
+      };
+    case MOVIE_DETAIL:
+      console.log("movie detail" + action.payload.id);
+      return {
+        ...state,
+        movieId: action.payload.id
       };
     default:
       return state;

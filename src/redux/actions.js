@@ -2,7 +2,8 @@ import {
   FETCH_MOVIES_BEGIN,
   FETCH_MOVIES_SUCCESS,
   FETCH_MOVIES_FAILURE,
-  CHANGE_PAGE
+  CHANGE_PAGE,
+  MOVIE_DETAIL
 } from "./actionTypes";
 
 import { API } from "../constants";
@@ -26,6 +27,11 @@ export const changePage = activePage => ({
   payload: { activePage }
 });
 
+export const movieDetail = id => ({
+  type: MOVIE_DETAIL,
+  payload: { id }
+});
+
 // async
 export const fetchMovies = () => {
   return dispatch => {
@@ -39,6 +45,16 @@ export const fetchMovies = () => {
       })
       .then(response => response.json())
       .then(data => {
+        data.results = data.results.map((movie, index) => {
+          const slug = `${movie.id}-${movie.title
+            .replace(/\s+/g, "-")
+            .toLowerCase()}`;
+          return {
+            ...movie,
+            slug,
+            index
+          };
+        });
         dispatch(fetchMoviesSuccess(data.results));
         console.log(data.results);
         return data.results;

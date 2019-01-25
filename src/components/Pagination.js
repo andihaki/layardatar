@@ -8,20 +8,14 @@ import { Link } from "react-router-dom";
 const Pagination = ({ pages, dispatch }) => {
   // console.log(pages);
   return (
-    // <Router>
     <React.Fragment>
       {pages &&
         pages.map(page => (
-          // <button key={page} onClick={() => dispatch(changePage(page))}>
-          <Link to={{ pathname: "/", search: `?page=${page}` }}>
-            <button key={page} onClick={() => dispatch(changePage(page))}>
-              {page}
-            </button>
+          <Link key={page} to={{ pathname: "/", search: `?page=${page}` }}>
+            <button onClick={() => dispatch(changePage(page))}>{page}</button>
           </Link>
-          // </button>
         ))}
     </React.Fragment>
-    // </Router>
   );
 };
 
