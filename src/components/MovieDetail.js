@@ -8,15 +8,10 @@ import {
   fetchReviews
 } from "../redux/actions";
 import Movie from "./Movie";
-import Cast from "./Cast";
-import Similar from "./Similar";
-import Recommendation from "./Recommendation";
-import Reviews from "./Reviews";
 
 class MovieDetail extends React.Component {
   componentDidMount() {
     // console.log(this.props.movies.length);
-    console.log("a", this.props.casts);
     this.props.movies.length || this.props.dispatch(fetchMovies());
 
     const queryParams = this.props.match.params.id;
@@ -28,8 +23,8 @@ class MovieDetail extends React.Component {
   }
 
   render() {
-    const { movies, error, loading, casts, similars } = this.props;
-    const { recommendations, reviews } = this.props;
+    const { movies, error, loading } = this.props;
+    // const { casts, similars, recommendations, reviews } = this.props;
     // console.log(movies, error, loading);
 
     if (error) {
@@ -44,43 +39,20 @@ class MovieDetail extends React.Component {
     const movieId = parseInt(queryParams.split("-")[0]);
     const movie = movies && movies.filter(data => data.id === movieId)[0];
 
-    const movieCast = casts.length ? (
-      <Cast movieId={movieId} />
-    ) : (
-      <div>Fetching cast</div>
-    );
-    const movieSimilar = similars.length ? (
-      <Similar movieId={movieId} />
-    ) : (
-      <div>
-        Fetching rating, durasi film, harga film, indikator pengguna memiliki
-        film
-      </div>
-    );
-    const movieRecommendation = recommendations.length ? (
-      <Recommendation />
-    ) : (
-      <div>
-        Fetching rating, durasi film, harga film, indikator pengguna memiliki
-        film
-      </div>
-    );
-    const movieReviews = reviews.length ? (
-      <Reviews />
-    ) : (
-      <div>
-        Fetching rating, durasi film, harga film, indikator pengguna memiliki
-        film
-      </div>
-    );
+    const Cast = React.lazy(() => import("./Cast"));
+    const Similar = React.lazy(() => import("./Similar"));
+    const Recommendation = React.lazy(() => import("./Recommendation"));
+    const Reviews = React.lazy(() => import("./Reviews"));
 
     return (
       <React.Fragment>
         <Movie movie={movie} onClick={() => console.log(null)} />
-        {movieCast}
-        {movieSimilar}
-        {movieRecommendation}
-        {movieReviews}
+        <React.Suspense fallback={<div>Loading...</div>}>
+          <Cast />
+          <Similar />
+          <Recommendation />
+          <Reviews />
+        </React.Suspense>
       </React.Fragment>
     );
   }

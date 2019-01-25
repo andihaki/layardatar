@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-const Cast = ({ movieId, casts }) => {
+const Cast = ({ casts }) => {
   return (
     <div>
       <h3>Pemain Film:</h3>

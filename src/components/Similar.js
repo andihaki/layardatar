@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-const Similar = ({ movieId, similars }) => {
+const Similar = ({ similars }) => {
   // console.log(similars);
   return (
     <div>
