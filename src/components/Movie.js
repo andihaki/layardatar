@@ -1,6 +1,7 @@
 import React from "react";
 
 const Movie = ({ movie, onClick }) => {
+  // console.log(movie);
   const {
     id,
     title,
