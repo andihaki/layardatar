@@ -3,11 +3,15 @@ import {
   FETCH_MOVIES_SUCCESS,
   FETCH_MOVIES_FAILURE,
   CHANGE_PAGE,
-  MOVIE_DETAIL
+  MOVIE_DETAIL,
+  FETCH_MOVIE_CREDITS_BEGIN,
+  FETCH_MOVIE_CREDITS_SUCCESS,
+  FETCH_MOVIE_CREDITS_FAILURE
 } from "./actionTypes";
 
-import { API } from "../constants";
+import { API, API_CREDIT } from "../constants";
 
+// home page
 export const fetchMoviesBegin = () => ({
   type: FETCH_MOVIES_BEGIN
 });
@@ -27,9 +31,24 @@ export const changePage = activePage => ({
   payload: { activePage }
 });
 
+// movie detail
 export const movieDetail = id => ({
   type: MOVIE_DETAIL,
   payload: { id }
+});
+
+export const fetchMovieCreditBegin = () => ({
+  type: FETCH_MOVIE_CREDITS_BEGIN
+});
+
+export const fetchMovieCreditSuccess = movieDetail => ({
+  type: FETCH_MOVIE_CREDITS_SUCCESS,
+  payload: { movieDetail }
+});
+
+export const fetchMovieCreditFailure = error => ({
+  type: FETCH_MOVIE_CREDITS_FAILURE,
+  payload: { error }
 });
 
 // async
@@ -60,5 +79,27 @@ export const fetchMovies = () => {
         return data.results;
       })
       .catch(error => dispatch(fetchMoviesFailure(error)));
+  };
+};
+
+export const fetchMovieCredit = movieId => {
+  return dispatch => {
+    dispatch(fetchMovieCreditBegin());
+
+    return fetch(API_CREDIT.replace("credit_id", movieId))
+      .then(response => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+        return response;
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.cast);
+        dispatch(fetchMovieCreditSuccess(data.cast));
+
+        return data.cast;
+      })
+      .catch(error => dispatch(fetchMovieCreditFailure(error)));
   };
 };
