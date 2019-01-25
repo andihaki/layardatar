@@ -11,6 +11,7 @@ class App extends Component {
     return (
       <Router>
         <React.Fragment>
+          <h3>TopFlix ~ Tokopedia Flix</h3>
           <Pagination />
           {/* <MovieList /> */}
           <Switch>

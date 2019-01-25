@@ -30,7 +30,8 @@ const initialState = {
   casts: [],
   similars: [],
   recommendations: [],
-  reviews: []
+  reviews: [],
+  saldo: 100000
 };
 
 export default function(state = initialState, action) {
@@ -54,7 +55,8 @@ export default function(state = initialState, action) {
         return {
           ...movie,
           slug,
-          index
+          index,
+          price: 3500
         };
       });
       console.log(movies);
