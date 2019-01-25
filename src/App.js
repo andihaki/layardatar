@@ -3,7 +3,8 @@ import React, { Component } from "react";
 import MovieList from "./components/MovieList";
 import Pagination from "./components/Pagination";
 
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import MovieDetail from "./components/MovieDetail";
 
 class App extends Component {
   render() {
@@ -11,8 +12,11 @@ class App extends Component {
       <Router>
         <React.Fragment>
           <Pagination />
-          <MovieList />
-          {/* <Pagination totalMovies={18} pageLimit={2} /> */}
+          {/* <MovieList /> */}
+          <Switch>
+            <Route exact path="/" component={MovieList} />
+            <Route path="/:id" component={MovieDetail} />
+          </Switch>
         </React.Fragment>
       </Router>
     );

@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import Movie from "./Movie";
 import styled from "styled-components";
 
-import { fetchMovies } from "../redux/actions";
+import { fetchMovies, movieDetail } from "../redux/actions";
 
-import { Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Ul = styled.ul`
   list-style: none;
@@ -16,11 +16,23 @@ const Ul = styled.ul`
 `;
 
 class MovieList extends React.Component {
+  state = {
+    onePage: false,
+    id: null
+  };
   componentDidMount() {
-    this.props.dispatch(fetchMovies());
+    this.props.movies.length || this.props.dispatch(fetchMovies());
   }
+  renderMovieDetail = title => {
+    console.log("rMD", title);
+    this.props.dispatch(movieDetail(title));
+    // return <Redirect push to="/sample" />;
+    // this.setState({ onePage: true });
+  };
   render() {
     const { movies, loading, error, currentPage, limitPage } = this.props;
+
+    // console.log(movieId, limitPage * (currentPage - 1) + movieId);
     if (error) {
       return <div>Oops, ada sikomo lewat. {error.message}</div>;
     }
@@ -32,18 +44,30 @@ class MovieList extends React.Component {
     const sliceEnd = limitPage * currentPage;
 
     return (
+      // <React.Fragment>
+      //   {this.props.movieId === "" ? (
+      //     <Ul>
+      //       {movies.slice(sliceStart, sliceEnd).map(movie => (
+      //         <Link to={movie.slug} key={movie.id}>
+      //           <Movie
+      //             movie={movie}
+      //             onClick={() => this.renderMovieDetail(movie.index)}
+      //           />
+      //         </Link>
+      //       ))}
+      //     </Ul>
+      //   ) : (
+      //     <MovieDetail title="test" />
+      //   )}
+      // </React.Fragment>
       <Ul>
         {movies.slice(sliceStart, sliceEnd).map(movie => (
-          <Route
-            to={`${movie.id}-${movie.title.replace(/ /g, "-")}`}
-            key={movie.id}
-          >
+          <Link to={movie.slug} key={movie.id}>
             <Movie
-              key={movie.id}
               movie={movie}
-              onClick={() => console.log(movie.id)}
+              onClick={() => this.renderMovieDetail(movie.index)}
             />
-          </Route>
+          </Link>
         ))}
       </Ul>
     );
@@ -51,17 +75,13 @@ class MovieList extends React.Component {
 }
 
 const mapStateToProps = state => {
-  // console.log(
-  //   state.movies.currentPage === 1
-  //     ? state.movies.currentPage - 1
-  //     : state.movies.currentPage + state.movies.limitPage - 1
-  // );
   return {
     movies: state.movies.movies,
     loading: state.movies.loading,
     error: state.movies.error,
     currentPage: state.movies.currentPage,
-    limitPage: state.movies.limitPage
+    limitPage: state.movies.limitPage,
+    movieId: state.movies.movieId
   };
 };
 
