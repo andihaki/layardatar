@@ -8,7 +8,13 @@ import {
   FETCH_CAST_FAILURE,
   FETCH_SIMILAR_BEGIN,
   FETCH_SIMILAR_SUCCESS,
-  FETCH_SIMILAR_FAILURE
+  FETCH_SIMILAR_FAILURE,
+  FETCH_RECOMMENDATION_BEGIN,
+  FETCH_RECOMMENDATION_FAILURE,
+  FETCH_RECOMMENDATION_SUCCESS,
+  FETCH_REVIEWS_BEGIN,
+  FETCH_REVIEWS_FAILURE,
+  FETCH_REVIEWS_SUCCESS
 } from "../actionTypes";
 
 // import dummy from "./dummy";
@@ -22,7 +28,9 @@ const initialState = {
   limitPage: 2,
   movieId: "",
   casts: [],
-  similars: []
+  similars: [],
+  recommendations: [],
+  reviews: []
 };
 
 export default function(state = initialState, action) {
@@ -99,6 +107,41 @@ export default function(state = initialState, action) {
         ...state,
         error: action.payload.error,
         similars: []
+      };
+    case FETCH_RECOMMENDATION_BEGIN:
+      return { ...state, recommendations: [] };
+    case FETCH_RECOMMENDATION_SUCCESS:
+      console.log("FETCH_RECOMMENDATION", action.payload.recommendations);
+      const recommendations = action.payload.recommendations.length
+        ? action.payload.recommendations
+        : [{ id: 0, title: "tidak ada informasi film terkait" }];
+      return {
+        ...state,
+        recommendations
+      };
+    case FETCH_RECOMMENDATION_FAILURE:
+      return {
+        ...state,
+        error: action.payload.error,
+        recommendations: []
+      };
+    case FETCH_REVIEWS_BEGIN:
+      return { ...state, reviews: [] };
+    case FETCH_REVIEWS_SUCCESS:
+      console.log("FETCH_REVIEWS", action.payload.reviews);
+      console.log(action.payload.reviews);
+      const reviews = action.payload.reviews.length
+        ? action.payload.reviews
+        : [{ id: 0, title: "tidak ada review" }];
+      return {
+        ...state,
+        reviews
+      };
+    case FETCH_REVIEWS_FAILURE:
+      return {
+        ...state,
+        error: action.payload.error,
+        reviews: []
       };
     default:
       return state;

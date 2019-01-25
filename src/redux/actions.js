@@ -180,7 +180,7 @@ export const fetchRecommendation = movieId => {
       })
       .then(response => response.json())
       .then(data => {
-        console.log(data.results);
+        // console.log(data.results);
         dispatch(fetchRecommendationSuccess(data.results));
 
         return data.results;
@@ -199,12 +199,12 @@ export const fetchReviews = movieId => {
         }
         return response;
       })
-      .then(response => response.json())
+      .then(response => console.log(response.json) || response.json())
       .then(data => {
-        console.log(data.result);
-        dispatch(fetchReviewsSuccess(data.result));
+        console.log(data.results);
+        dispatch(fetchReviewsSuccess(data.results));
 
-        return data.result;
+        return data.results;
       })
       .catch(error => dispatch(fetchReviewsFailure(error)));
   };
