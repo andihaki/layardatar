@@ -5,9 +5,12 @@ import {
   fetchCast,
   fetchSimilar,
   fetchRecommendation,
-  fetchReviews
+  fetchReviews,
+  buyMovie
 } from "../redux/actions";
 import Movie from "./Movie";
+
+import WatchMovie from "./WatchMovie";
 
 class MovieDetail extends React.Component {
   componentDidMount() {
@@ -23,7 +26,7 @@ class MovieDetail extends React.Component {
   }
 
   render() {
-    const { movies, loading } = this.props;
+    const { movies, loading, orders } = this.props;
     // console.log(movies, error, loading);
 
     // if (error) {
@@ -45,7 +48,12 @@ class MovieDetail extends React.Component {
 
     return (
       <React.Fragment>
-        <Movie movie={movie} onClick={() => console.log(null)} />
+        <Movie movie={movie} />
+        <WatchMovie
+          ordered={orders.includes(movie.id)}
+          price={movie.price}
+          onClick={() => this.props.dispatch(buyMovie(movie.id))}
+        />
         <React.Suspense fallback={<div>Loading...</div>}>
           <Cast />
           <Similar />
@@ -66,7 +74,8 @@ const mapStateToProps = state => {
     casts: state.movies.casts,
     similars: state.movies.similars,
     recommendations: state.movies.recommendations,
-    reviews: state.movies.reviews
+    reviews: state.movies.reviews,
+    orders: state.movies.orders
   };
 };
 

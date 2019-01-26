@@ -162,13 +162,15 @@ export default function(state = initialState, action) {
         reviews: []
       };
     case BUY_MOVIE:
-      const ordered = state.orders.includes(action.payload.movieId);
-      const orders = !ordered
-        ? state.orders.concat(action.payload.movieId)
-        : state.orders;
+      const { movieId } = action.payload;
+      const ordered = state.orders.includes(movieId);
+      const movie = state.movies.find(temp => temp.id === movieId);
+      const orders = !ordered ? state.orders.concat(movieId) : state.orders;
+      const saldo = state.saldo - movie.price;
       return {
         ...state,
-        orders
+        orders,
+        saldo
       };
     default:
       return state;

@@ -3,18 +3,16 @@ import React from "react";
 const Movie = ({ movie, onClick }) => {
   // console.log(movie);
   const {
-    id,
     title,
     release_date,
     vote_average,
     overview,
     poster_path,
-    backdrop_path,
-    price
+    backdrop_path
   } = movie;
 
   return (
-    <li key={id} onClick={onClick}>
+    <div>
       {title} - {release_date} - {vote_average}
       <p>{overview || "Maaf, tidak ada dekripsi"}</p>
       <img src={"https://image.tmdb.org/t/p/w200" + poster_path} alt={title} />
@@ -26,13 +24,7 @@ const Movie = ({ movie, onClick }) => {
         }
         alt={title}
       />
-      <p>
-        Harga <span>{price}</span>
-        <button>
-          <h1>Beli</h1>
-        </button>
-      </p>
-    </li>
+    </div>
   );
 };
 // const Movie = ({ data }) => console.log(data);

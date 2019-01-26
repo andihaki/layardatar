@@ -5,6 +5,8 @@ import styled from "styled-components";
 
 import { fetchMovies, buyMovie } from "../redux/actions";
 
+import WatchMovie from "./WatchMovie";
+
 const Ul = styled.ul`
   list-style: none;
 
@@ -41,12 +43,14 @@ class MovieList extends React.Component {
     return (
       <Ul>
         {movies.slice(sliceStart, sliceEnd).map(movie => (
-          <MovieForList
-            movie={movie}
-            key={movie.id}
-            ordered={orders.includes(movie.id)}
-            onClick={() => this.props.dispatch(buyMovie(movie.id))}
-          />
+          <li key={movie.id}>
+            <MovieForList movie={movie} />
+            <WatchMovie
+              ordered={orders.includes(movie.id)}
+              price={movie.price}
+              onClick={() => this.props.dispatch(buyMovie(movie.id))}
+            />
+          </li>
         ))}
       </Ul>
     );
