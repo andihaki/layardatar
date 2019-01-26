@@ -7,12 +7,18 @@ import { fetchMovies, buyMovie } from "../redux/actions";
 
 import WatchMovie from "./WatchMovie";
 
+import Pagination from "./Pagination";
+
 const Ul = styled.ul`
   list-style: none;
 
-  display: grid;
+  /* display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: 10px;
+  grid-gap: 10px; */
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
 `;
 
 class MovieList extends React.Component {
@@ -41,18 +47,21 @@ class MovieList extends React.Component {
     const sliceEnd = limitPage * currentPage;
 
     return (
-      <Ul>
-        {movies.slice(sliceStart, sliceEnd).map(movie => (
-          <li key={movie.id}>
-            <MovieForList movie={movie} />
-            <WatchMovie
-              ordered={orders.includes(movie.id)}
-              price={movie.price}
-              onClick={() => this.props.dispatch(buyMovie(movie.id))}
-            />
-          </li>
-        ))}
-      </Ul>
+      <React.Fragment>
+        <Pagination />
+        <Ul>
+          {movies.slice(sliceStart, sliceEnd).map(movie => (
+            <li key={movie.id}>
+              <MovieForList movie={movie} />
+              <WatchMovie
+                ordered={orders.includes(movie.id)}
+                price={movie.price}
+                onClick={() => this.props.dispatch(buyMovie(movie.id))}
+              />
+            </li>
+          ))}
+        </Ul>
+      </React.Fragment>
     );
   }
 }

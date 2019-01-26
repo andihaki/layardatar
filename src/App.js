@@ -1,21 +1,18 @@
 import React, { Component } from "react";
 
 import MovieList from "./components/MovieList";
-import Pagination from "./components/Pagination";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import MovieDetail from "./components/MovieDetail";
 
-import { connect } from "react-redux";
+import NavBar from "./components/NavBar";
 
 class App extends Component {
   render() {
     return (
       <Router>
         <React.Fragment>
-          <h3>TopFlix ~ Tokopedia Flix</h3>
-          <h5>Saldo: {this.props.saldo.toLocaleString("id-ID")}</h5>
-          <Pagination />
+          <NavBar />
           {/* <MovieList /> */}
           <Switch>
             <Route exact path="/" component={MovieList} />
@@ -26,9 +23,5 @@ class App extends Component {
     );
   }
 }
-const mapStateToProps = state => {
-  return {
-    saldo: state.movies.saldo
-  };
-};
-export default connect(mapStateToProps)(App);
+
+export default App;

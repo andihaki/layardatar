@@ -8,7 +8,9 @@ const MovieForList = ({ movie }) => {
   return (
     <div>
       <Link to={movie.slug}>
-        {title} - {release_date} - {vote_average}
+        <h4>
+          {title} - {release_date} - {vote_average}
+        </h4>
         <img
           src={"https://image.tmdb.org/t/p/w200" + poster_path}
           alt={title}

@@ -165,6 +165,10 @@ export default function(state = initialState, action) {
       const { movieId } = action.payload;
       const ordered = state.orders.includes(movieId);
       const movie = state.movies.find(temp => temp.id === movieId);
+      if (state.saldo < movie.price) {
+        alert("saldo tidak cukup");
+        return state;
+      }
       const orders = !ordered ? state.orders.concat(movieId) : state.orders;
       const saldo = state.saldo - movie.price;
       return {

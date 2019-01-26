@@ -11,6 +11,7 @@ const Grid = styled.div`
 
 const Recommendation = ({ recommendations }) => {
   // console.log(recommendations);
+
   return (
     <div>
       <h3>Rekomendasi Film:</h3>
