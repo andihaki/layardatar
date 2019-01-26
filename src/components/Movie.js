@@ -9,7 +9,8 @@ const Movie = ({ movie, onClick }) => {
     vote_average,
     overview,
     poster_path,
-    backdrop_path
+    backdrop_path,
+    price
   } = movie;
 
   return (
@@ -25,6 +26,12 @@ const Movie = ({ movie, onClick }) => {
         }
         alt={title}
       />
+      <p>
+        Harga <span>{price}</span>
+        <button>
+          <h1>Beli</h1>
+        </button>
+      </p>
     </li>
   );
 };

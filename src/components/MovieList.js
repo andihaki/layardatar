@@ -1,11 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import Movie from "./Movie";
+import MovieForList from "./MovieForList";
 import styled from "styled-components";
 
 import { fetchMovies } from "../redux/actions";
-
-import { Link } from "react-router-dom";
 
 const Ul = styled.ul`
   list-style: none;
@@ -41,9 +39,7 @@ class MovieList extends React.Component {
     return (
       <Ul>
         {movies.slice(sliceStart, sliceEnd).map(movie => (
-          <Link to={movie.slug} key={movie.id}>
-            <Movie movie={movie} onClick={() => console.log(movie.index)} />
-          </Link>
+          <MovieForList movie={movie} key={movie.id} />
         ))}
       </Ul>
     );

@@ -24,7 +24,6 @@ class MovieDetail extends React.Component {
 
   render() {
     const { movies, error, loading } = this.props;
-    // const { casts, similars, recommendations, reviews } = this.props;
     // console.log(movies, error, loading);
 
     if (error) {

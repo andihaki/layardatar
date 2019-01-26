@@ -31,7 +31,8 @@ const initialState = {
   similars: [],
   recommendations: [],
   reviews: [],
-  saldo: 100000
+  saldo: 100000,
+  orders: []
 };
 
 export default function(state = initialState, action) {
@@ -52,13 +53,27 @@ export default function(state = initialState, action) {
         const slug = `${movie.id}-${movie.title
           .replace(/\s+/g, "-")
           .toLowerCase()}`;
+        let price = 3500;
+        const rating = movie.vote_average;
+
+        if (rating > 3 && rating <= 6) {
+          price = 8250;
+        }
+        if (rating > 6 && rating <= 8) {
+          price = 16350;
+        }
+        if (rating > 8 && rating <= 10) {
+          price = 21250;
+        }
+
         return {
           ...movie,
           slug,
           index,
-          price: 3500
+          price
         };
       });
+
       console.log(movies);
       return {
         ...state,
