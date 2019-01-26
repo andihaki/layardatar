@@ -1,13 +1,13 @@
 import React from "react";
 
 const WatchMovie = ({ ordered, price, onClick }) => (
-  <div onClick={onClick}>
+  <div>
     {ordered ? (
       <p>
         <button>Tonton Sekarang</button>
       </p>
     ) : (
-      <p>
+      <p onClick={onClick}>
         Harga <span>{price.toLocaleString("id-ID")}</span>
         <button>Beli</button>
       </p>
