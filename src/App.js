@@ -14,7 +14,7 @@ class App extends Component {
       <Router>
         <React.Fragment>
           <h3>TopFlix ~ Tokopedia Flix</h3>
-          <h5>Saldo: {this.props.saldo}</h5>
+          <h5>Saldo: {this.props.saldo.toLocaleString("id-ID")}</h5>
           <Pagination />
           {/* <MovieList /> */}
           <Switch>

@@ -8,7 +8,7 @@ const WatchMovie = ({ ordered, price, onClick }) => (
       </p>
     ) : (
       <p>
-        Harga <span>{price}</span>
+        Harga <span>{price.toLocaleString("id-ID")}</span>
         <button>Beli</button>
       </p>
     )}
