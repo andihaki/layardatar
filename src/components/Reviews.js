@@ -5,7 +5,7 @@ const Reviews = ({ reviews }) => {
   // console.log(reviews);
   return (
     <div>
-      <h3>Rekomendasi Film:</h3>
+      <h3>Ulasan Film:</h3>
       {reviews.map(data => (
         <div key={data.id}>{data.title}</div>
       ))}
