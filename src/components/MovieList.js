@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import MovieForList from "./MovieForList";
 import styled from "styled-components";
 
-import { fetchMovies } from "../redux/actions";
+import { fetchMovies, buyMovie } from "../redux/actions";
 
 const Ul = styled.ul`
   list-style: none;
@@ -24,6 +24,7 @@ class MovieList extends React.Component {
 
   render() {
     const { movies, loading, error, currentPage, limitPage } = this.props;
+    const { orders } = this.props;
 
     // console.log(movieId, limitPage * (currentPage - 1) + movieId);
     if (error) {
@@ -33,13 +34,19 @@ class MovieList extends React.Component {
       return <div>Menunggu kepastian...</div>;
     }
 
+    // for pagination
     const sliceStart = limitPage * currentPage - limitPage;
     const sliceEnd = limitPage * currentPage;
 
     return (
       <Ul>
         {movies.slice(sliceStart, sliceEnd).map(movie => (
-          <MovieForList movie={movie} key={movie.id} />
+          <MovieForList
+            movie={movie}
+            key={movie.id}
+            ordered={orders.includes(movie.id)}
+            onClick={() => this.props.dispatch(buyMovie(movie.id))}
+          />
         ))}
       </Ul>
     );
@@ -47,13 +54,15 @@ class MovieList extends React.Component {
 }
 
 const mapStateToProps = state => {
+  console.log(state.movies.orders);
   return {
     movies: state.movies.movies,
     loading: state.movies.loading,
     error: state.movies.error,
     currentPage: state.movies.currentPage,
     limitPage: state.movies.limitPage,
-    movieId: state.movies.movieId
+    movieId: state.movies.movieId,
+    orders: state.movies.orders
   };
 };
 

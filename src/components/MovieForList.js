@@ -1,9 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const MovieForList = ({ movie, onClick }) => {
+const MovieForList = ({ movie, onClick, ordered }) => {
   // console.log(movie);
   const { id, title, release_date, vote_average, poster_path, price } = movie;
+
+  const watchMovie = ordered ? (
+    <p>
+      <button>Tonton Sekarang</button>
+    </p>
+  ) : (
+    <p>
+      Harga <span>{price}</span>
+      <button>Beli</button>
+    </p>
+  );
 
   return (
     <li key={id} onClick={onClick}>
@@ -14,10 +25,7 @@ const MovieForList = ({ movie, onClick }) => {
           alt={title}
         />
       </Link>
-      <p>
-        Harga <span>{price}</span>
-        <button>Beli</button>
-      </p>
+      {watchMovie}
     </li>
   );
 };

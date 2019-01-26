@@ -14,7 +14,8 @@ import {
   FETCH_RECOMMENDATION_SUCCESS,
   FETCH_REVIEWS_BEGIN,
   FETCH_REVIEWS_FAILURE,
-  FETCH_REVIEWS_SUCCESS
+  FETCH_REVIEWS_SUCCESS,
+  BUY_MOVIE
 } from "../actionTypes";
 
 // import dummy from "./dummy";
@@ -159,6 +160,15 @@ export default function(state = initialState, action) {
         ...state,
         error: action.payload.error,
         reviews: []
+      };
+    case BUY_MOVIE:
+      const ordered = state.orders.includes(action.payload.movieId);
+      const orders = !ordered
+        ? state.orders.concat(action.payload.movieId)
+        : state.orders;
+      return {
+        ...state,
+        orders
       };
     default:
       return state;

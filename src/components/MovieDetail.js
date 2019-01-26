@@ -23,12 +23,12 @@ class MovieDetail extends React.Component {
   }
 
   render() {
-    const { movies, error, loading } = this.props;
+    const { movies, loading } = this.props;
     // console.log(movies, error, loading);
 
-    if (error) {
-      return <div>Oops, ada sikomo lewat. {error.message}</div>;
-    }
+    // if (error) {
+    //   return <div>Oops, ada sikomo lewat. {error.message}</div>;
+    // }
     // // hmm aneh disini, harus handle movies kosong
     if (loading || !movies.length) {
       return <div>Menunggu kepastian...</div>;

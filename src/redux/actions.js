@@ -14,7 +14,8 @@ import {
   FETCH_RECOMMENDATION_FAILURE,
   FETCH_REVIEWS_BEGIN,
   FETCH_REVIEWS_SUCCESS,
-  FETCH_REVIEWS_FAILURE
+  FETCH_REVIEWS_FAILURE,
+  BUY_MOVIE
 } from "./actionTypes";
 
 import {
@@ -103,6 +104,11 @@ export const fetchReviewsSuccess = reviews => ({
 export const fetchReviewsFailure = error => ({
   type: FETCH_REVIEWS_FAILURE,
   payload: { error }
+});
+
+export const buyMovie = movieId => ({
+  type: BUY_MOVIE,
+  payload: { movieId }
 });
 
 // async
