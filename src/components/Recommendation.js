@@ -23,7 +23,11 @@ const Recommendation = ({ recommendations, dispatch, onClick }) => {
         {recommendations.map(data => (
           <div key={data.id}>
             <Link
-              to={data.id + "-" + data.title.replace(/ /g, "-")}
+              to={
+                data.id +
+                "-" +
+                data.title.replace(/[^A-Za-z0-9\s]/g, "").replace(/ /g, "-")
+              }
               // onClick={onClick(data.id).bind(this)}
               onClick={() => dispatch(fetchDetails(data.id))}
             >

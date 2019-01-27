@@ -57,6 +57,7 @@ export default function(state = initialState, action) {
         .map((_, i) => i + 1);
       const movies = action.payload.movies.map((movie, index) => {
         const slug = `${movie.id}-${movie.title
+          .replace(/[^A-Za-z0-9\s]/g, "")
           .replace(/\s+/g, "-")
           .toLowerCase()}`;
         let price = 3500;
@@ -184,9 +185,15 @@ export default function(state = initialState, action) {
       if (rating > 8 && rating <= 10) {
         price = 21250;
       }
+
+      const slug = `${details.id}-${details.title
+        .replace(/[^A-Za-z0-9\s]/g, "")
+        .replace(/\s+/g, "-")
+        .toLowerCase()}`;
       details = {
         ...details,
-        price
+        price,
+        slug
       };
       // console.log(details);
       // const movies = state.movies.concat(details);
