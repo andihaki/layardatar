@@ -2,6 +2,8 @@ import React from "react";
 
 import styled from "styled-components";
 
+import { connect } from "react-redux";
+
 const Grid = styled.div`
   /* display: flex; */
   background-image: url(${props => props.backgroundUrl});
@@ -48,7 +50,7 @@ const HorizontalAlign = styled.div`
   }
 `;
 
-const Movie = ({ movie, details }) => {
+const Movie = ({ movie }) => {
   // console.log(movie);
   const {
     title,
@@ -56,10 +58,13 @@ const Movie = ({ movie, details }) => {
     vote_average,
     overview,
     poster_path,
-    backdrop_path
+    backdrop_path,
+    genres,
+    runtime,
+    production_companies
   } = movie;
 
-  const { genres, runtime, production_companies } = details;
+  // const { genres, runtime, production_companies } = details;
 
   return (
     <Grid backgroundUrl={"https://image.tmdb.org/t/p/original" + backdrop_path}>
@@ -111,5 +116,10 @@ const Movie = ({ movie, details }) => {
     </Grid>
   );
 };
-// const Movie = ({ data }) => console.log(data);
-export default Movie;
+const mapStateToProps = state => {
+  console.log(state.movies.details);
+  return {
+    movie: state.movies.details
+  };
+};
+export default connect(mapStateToProps)(Movie);

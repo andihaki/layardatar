@@ -55,7 +55,7 @@ const NavBar = ({ saldo }) => (
       <h5>Saldo: {saldo.toLocaleString("id-ID")}</h5>
     </Li>
     <Li>
-      <Link to="#">Wishlist</Link>
+      <Link to="/filmku">Filmku</Link>
     </Li>
   </Ul>
 );

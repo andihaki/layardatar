@@ -184,7 +184,7 @@ export const fetchSimilar = movieId => {
       })
       .then(response => response.json())
       .then(data => {
-        console.log(data.results);
+        // console.log(data.results);
         dispatch(fetchSimilarSuccess(data.results));
 
         return data.results;
@@ -214,6 +214,7 @@ export const fetchRecommendation = movieId => {
   };
 };
 export const fetchReviews = movieId => {
+  // console.log(movieId);
   return dispatch => {
     dispatch(fetchReviewsBegin());
 
@@ -224,9 +225,9 @@ export const fetchReviews = movieId => {
         }
         return response;
       })
-      .then(response => console.log(response.json) || response.json())
+      .then(response => response.json())
       .then(data => {
-        console.log(data.results);
+        // console.log(data.results);
         dispatch(fetchReviewsSuccess(data.results));
 
         return data.results;
@@ -237,6 +238,11 @@ export const fetchReviews = movieId => {
 export const fetchDetails = movieId => {
   return dispatch => {
     dispatch(fetchDetailsBegin());
+
+    dispatch(fetchCast(movieId));
+    dispatch(fetchRecommendation(movieId));
+    dispatch(fetchSimilar(movieId));
+    dispatch(fetchReviews(movieId));
 
     return fetch(API_DETAILS.replace("movie_id", movieId))
       .then(response => {

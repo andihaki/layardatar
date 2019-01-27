@@ -37,7 +37,8 @@ const initialState = {
   reviews: [],
   saldo: 100000,
   orders: [],
-  details: {}
+  details: {},
+  orderedMovies: []
 };
 
 export default function(state = initialState, action) {
@@ -79,7 +80,7 @@ export default function(state = initialState, action) {
         };
       });
 
-      console.log(movies);
+      // console.log(movies);
       return {
         ...state,
         loading: false,
@@ -151,7 +152,7 @@ export default function(state = initialState, action) {
       return { ...state, reviews: [] };
     case FETCH_REVIEWS_SUCCESS:
       // console.log("FETCH_REVIEWS", action.payload.reviews);
-      console.log(action.payload.reviews);
+      // console.log(action.payload.reviews);
       const reviews = action.payload.reviews.length
         ? action.payload.reviews
         : [{ id: 0, title: "tidak ada review" }];
@@ -166,14 +167,33 @@ export default function(state = initialState, action) {
         reviews: []
       };
     case FETCH_DETAILS_BEGIN:
-      return { ...state, details: [] };
+      return { ...state, details: {} };
     case FETCH_DETAILS_SUCCESS:
-      console.log("FETCH_DETAILS", action.payload.details);
+      // console.log("FETCH_DETAILS", action.payload.details);
+      let details = action.payload.details;
 
-      const details = action.payload.details;
+      let price = 3500;
+      const rating = details.vote_average;
+
+      if (rating > 3 && rating <= 6) {
+        price = 8250;
+      }
+      if (rating > 6 && rating <= 8) {
+        price = 16350;
+      }
+      if (rating > 8 && rating <= 10) {
+        price = 21250;
+      }
+      details = {
+        ...details,
+        price
+      };
+      // console.log(details);
+      // const movies = state.movies.concat(details);
       return {
         ...state,
-        details
+        details,
+        movies: state.movies.concat(details)
       };
     case FETCH_DETAILS_FAILURE:
       return {
@@ -191,10 +211,12 @@ export default function(state = initialState, action) {
       }
       const orders = !ordered ? state.orders.concat(movieId) : state.orders;
       const saldo = state.saldo - movie.price;
+      const orderedMovies = state.orderedMovies.concat(movie);
       return {
         ...state,
         orders,
-        saldo
+        saldo,
+        orderedMovies
       };
     default:
       return state;

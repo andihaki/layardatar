@@ -77,7 +77,7 @@ class MovieList extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state.movies.orders);
+  // console.log(state.movies.orders);
   return {
     movies: state.movies.movies,
     loading: state.movies.loading,

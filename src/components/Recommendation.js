@@ -3,13 +3,17 @@ import { connect } from "react-redux";
 
 import styled from "styled-components";
 
+import { Link } from "react-router-dom";
+
+import { fetchDetails } from "../redux/actions";
+
 const Grid = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 `;
 
-const Recommendation = ({ recommendations }) => {
+const Recommendation = ({ recommendations, dispatch, onClick }) => {
   // console.log(recommendations);
 
   return (
@@ -18,10 +22,16 @@ const Recommendation = ({ recommendations }) => {
       <Grid>
         {recommendations.map(data => (
           <div key={data.id}>
-            <img
-              src={"https://image.tmdb.org/t/p/w200" + data.poster_path}
-              alt={data.title}
-            />
+            <Link
+              to={data.id + "-" + data.title.replace(/ /g, "-")}
+              // onClick={onClick(data.id).bind(this)}
+              onClick={() => dispatch(fetchDetails(data.id))}
+            >
+              <img
+                src={"https://image.tmdb.org/t/p/w200" + data.poster_path}
+                alt={data.title}
+              />
+            </Link>
           </div>
         ))}
       </Grid>

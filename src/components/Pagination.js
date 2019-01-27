@@ -37,7 +37,7 @@ const Div = styled.div`
 `;
 
 const Pagination = ({ pages, dispatch, currentPage }) => {
-  console.log(currentPage);
+  // console.log(currentPage);
   return (
     <Div>
       {pages &&
