@@ -7,6 +7,8 @@ import ImageNotFound from "../image-not-found.svg";
 
 const Img = styled.img`
   border-radius: 10%;
+  min-height: 138px;
+  min-width: 94px;
 `;
 
 const Row = styled.div`

@@ -9,10 +9,14 @@ const Grid = styled.div`
   background-size: cover;
 
   display: flex;
+  min-width: 500px;
 `;
 
 const Poster = styled.img`
-  margin: 10px;
+  margin: auto 10px;
+
+  height: 300px;
+  width: 200px;
 `;
 
 const Detail = styled.div`
@@ -24,6 +28,7 @@ const Detail = styled.div`
 
 const Overview = styled.h4`
   color: green;
+  margin-bottom: 0px;
 `;
 
 const HorizontalAlign = styled.div`
@@ -38,10 +43,12 @@ const HorizontalAlign = styled.div`
 
   h3 {
     color: green;
+    margin: 0px auto;
+    margin-top: -15px;
   }
 `;
 
-const Movie = ({ movie }) => {
+const Movie = ({ movie, details }) => {
   // console.log(movie);
   const {
     title,
@@ -51,6 +58,8 @@ const Movie = ({ movie }) => {
     poster_path,
     backdrop_path
   } = movie;
+
+  const { genres, runtime, production_companies } = details;
 
   return (
     <Grid backgroundUrl={"https://image.tmdb.org/t/p/original" + backdrop_path}>
@@ -63,12 +72,31 @@ const Movie = ({ movie }) => {
         <Overview>{overview || "Maaf, tidak ada dekripsi"}</Overview>
         <HorizontalAlign>
           <div>
+            <p>Genre: </p>
+            <h3>{genres && genres.map(genre => genre.name + ", ")}</h3>
+          </div>
+        </HorizontalAlign>
+        <HorizontalAlign>
+          <div>
             <p>Tanggal Release: </p>
             <h3>{release_date}</h3>
           </div>
           <div>
             <p>Rating: </p>
-            <h3>{vote_average}</h3>
+            <h3>{vote_average} / 10</h3>
+          </div>
+          <div>
+            <p>Durasi: </p>
+            <h3>{runtime} Menit</h3>
+          </div>
+        </HorizontalAlign>
+        <HorizontalAlign>
+          <div>
+            <p>Diproduksi oleh: </p>
+            <h3>
+              {production_companies &&
+                production_companies.map(companies => companies.name + ", ")}
+            </h3>
           </div>
         </HorizontalAlign>
       </Detail>

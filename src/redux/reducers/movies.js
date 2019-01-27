@@ -15,7 +15,10 @@ import {
   FETCH_REVIEWS_BEGIN,
   FETCH_REVIEWS_FAILURE,
   FETCH_REVIEWS_SUCCESS,
-  BUY_MOVIE
+  BUY_MOVIE,
+  FETCH_DETAILS_BEGIN,
+  FETCH_DETAILS_SUCCESS,
+  FETCH_DETAILS_FAILURE
 } from "../actionTypes";
 
 // import dummy from "./dummy";
@@ -33,7 +36,8 @@ const initialState = {
   recommendations: [],
   reviews: [],
   saldo: 100000,
-  orders: []
+  orders: [],
+  details: {}
 };
 
 export default function(state = initialState, action) {
@@ -129,7 +133,7 @@ export default function(state = initialState, action) {
     case FETCH_RECOMMENDATION_BEGIN:
       return { ...state, recommendations: [] };
     case FETCH_RECOMMENDATION_SUCCESS:
-      console.log("FETCH_RECOMMENDATION", action.payload.recommendations);
+      // console.log("FETCH_RECOMMENDATION", action.payload.recommendations);
       const recommendations = action.payload.recommendations.length
         ? action.payload.recommendations
         : [{ id: 0, title: "tidak ada informasi film terkait" }];
@@ -146,7 +150,7 @@ export default function(state = initialState, action) {
     case FETCH_REVIEWS_BEGIN:
       return { ...state, reviews: [] };
     case FETCH_REVIEWS_SUCCESS:
-      console.log("FETCH_REVIEWS", action.payload.reviews);
+      // console.log("FETCH_REVIEWS", action.payload.reviews);
       console.log(action.payload.reviews);
       const reviews = action.payload.reviews.length
         ? action.payload.reviews
@@ -160,6 +164,22 @@ export default function(state = initialState, action) {
         ...state,
         error: action.payload.error,
         reviews: []
+      };
+    case FETCH_DETAILS_BEGIN:
+      return { ...state, details: [] };
+    case FETCH_DETAILS_SUCCESS:
+      console.log("FETCH_DETAILS", action.payload.details);
+
+      const details = action.payload.details;
+      return {
+        ...state,
+        details
+      };
+    case FETCH_DETAILS_FAILURE:
+      return {
+        ...state,
+        error: action.payload.error,
+        details: {}
       };
     case BUY_MOVIE:
       const { movieId } = action.payload;

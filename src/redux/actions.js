@@ -15,6 +15,9 @@ import {
   FETCH_REVIEWS_BEGIN,
   FETCH_REVIEWS_SUCCESS,
   FETCH_REVIEWS_FAILURE,
+  FETCH_DETAILS_BEGIN,
+  FETCH_DETAILS_SUCCESS,
+  FETCH_DETAILS_FAILURE,
   BUY_MOVIE
 } from "./actionTypes";
 
@@ -23,7 +26,8 @@ import {
   API_CAST,
   API_SIMILAR,
   API_RECOMMENDATION,
-  API_REVIEWS
+  API_REVIEWS,
+  API_DETAILS
 } from "../constants";
 
 // home page
@@ -103,6 +107,21 @@ export const fetchReviewsSuccess = reviews => ({
 
 export const fetchReviewsFailure = error => ({
   type: FETCH_REVIEWS_FAILURE,
+  payload: { error }
+});
+
+// movie DETAILS
+export const fetchDetailsBegin = () => ({
+  type: FETCH_DETAILS_BEGIN
+});
+
+export const fetchDetailsSuccess = details => ({
+  type: FETCH_DETAILS_SUCCESS,
+  payload: { details }
+});
+
+export const fetchDetailsFailure = error => ({
+  type: FETCH_DETAILS_FAILURE,
   payload: { error }
 });
 
@@ -213,5 +232,26 @@ export const fetchReviews = movieId => {
         return data.results;
       })
       .catch(error => dispatch(fetchReviewsFailure(error)));
+  };
+};
+export const fetchDetails = movieId => {
+  return dispatch => {
+    dispatch(fetchDetailsBegin());
+
+    return fetch(API_DETAILS.replace("movie_id", movieId))
+      .then(response => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+        return response;
+      })
+      .then(response => response.json())
+      .then(data => {
+        // console.log(data);
+        dispatch(fetchDetailsSuccess(data));
+
+        return data;
+      })
+      .catch(error => dispatch(fetchDetailsFailure(error)));
   };
 };

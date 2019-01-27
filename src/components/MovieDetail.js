@@ -6,7 +6,8 @@ import {
   fetchSimilar,
   fetchRecommendation,
   fetchReviews,
-  buyMovie
+  buyMovie,
+  fetchDetails
 } from "../redux/actions";
 import Movie from "./Movie";
 
@@ -23,10 +24,11 @@ class MovieDetail extends React.Component {
     this.props.dispatch(fetchSimilar(movieId));
     this.props.dispatch(fetchRecommendation(movieId));
     this.props.dispatch(fetchReviews(movieId));
+    this.props.dispatch(fetchDetails(movieId));
   }
 
   render() {
-    const { movies, loading, orders } = this.props;
+    const { movies, loading, orders, details } = this.props;
     // console.log(movies, error, loading);
 
     // if (error) {
@@ -48,7 +50,7 @@ class MovieDetail extends React.Component {
 
     return (
       <React.Fragment>
-        <Movie movie={movie} />
+        <Movie movie={movie} details={details} />
         <WatchMovie
           ordered={orders.includes(movie.id)}
           price={movie.price}
@@ -75,7 +77,8 @@ const mapStateToProps = state => {
     similars: state.movies.similars,
     recommendations: state.movies.recommendations,
     reviews: state.movies.reviews,
-    orders: state.movies.orders
+    orders: state.movies.orders,
+    details: state.movies.details
   };
 };
 
