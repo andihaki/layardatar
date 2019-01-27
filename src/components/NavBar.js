@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 
 import { Link } from "react-router-dom";
 
+import SearchIcon from "../search-icon.svg";
+
 const Ul = styled.ul`
   /* position: fixed; */
   display: flex;
@@ -44,12 +46,23 @@ const Li = styled.li`
   }
 `;
 
+const SearchInput = styled.input`
+  /* padding: 12px; */
+  font-size: 26px;
+`;
+
 const NavBar = ({ saldo }) => (
   <Ul>
     <Li>
       <Link to="/">
         <h3>TopFlix ~ Tokopedia Flix</h3>
       </Link>
+    </Li>
+    <Li>
+      <div>
+        <SearchInput type="text" placeholder="cari film" />
+        <img src={SearchIcon} alt="x" />
+      </div>
     </Li>
     <Li>
       <h5>Saldo: {saldo.toLocaleString("id-ID")}</h5>
