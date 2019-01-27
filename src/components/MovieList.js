@@ -21,6 +21,16 @@ const Ul = styled.ul`
   flex-wrap: wrap;
 `;
 
+const Li = styled.li`
+  display: table-cell;
+  text-align: center;
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+`;
+
 class MovieList extends React.Component {
   state = {
     onePage: false,
@@ -51,14 +61,14 @@ class MovieList extends React.Component {
         <Pagination />
         <Ul>
           {movies.slice(sliceStart, sliceEnd).map(movie => (
-            <li key={movie.id}>
+            <Li key={movie.id}>
               <MovieForList movie={movie} />
               <WatchMovie
                 ordered={orders.includes(movie.id)}
                 price={movie.price}
                 onClick={() => this.props.dispatch(buyMovie(movie.id))}
               />
-            </li>
+            </Li>
           ))}
         </Ul>
       </React.Fragment>

@@ -3,6 +3,8 @@ import styled from "styled-components";
 
 import { connect } from "react-redux";
 
+import { Link } from "react-router-dom";
+
 const Ul = styled.ul`
   /* position: fixed; */
   display: flex;
@@ -31,17 +33,30 @@ const Li = styled.li`
   &:last-child {
     margin-left: 30px;
   }
+
+  a {
+    color: white;
+    text-decoration: none;
+
+    :hover {
+      text-decoration: underline;
+    }
+  }
 `;
 
 const NavBar = ({ saldo }) => (
   <Ul>
     <Li>
-      <h3>TopFlix ~ Tokopedia Flix</h3>
+      <Link to="/">
+        <h3>TopFlix ~ Tokopedia Flix</h3>
+      </Link>
     </Li>
     <Li>
       <h5>Saldo: {saldo.toLocaleString("id-ID")}</h5>
     </Li>
-    <Li>Wishlist</Li>
+    <Li>
+      <Link to="#">Wishlist</Link>
+    </Li>
   </Ul>
 );
 
