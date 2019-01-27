@@ -21,7 +21,7 @@ const WatchMovie = ({ ordered, price, onClick }) => (
       <Button>Tonton Sekarang</Button>
     ) : (
       <Button onClick={onClick}>
-        Harga: <span>{price.toLocaleString("id-ID")}</span>, Beli?
+        Rp <span>{price.toLocaleString("id-ID")}</span>, Beli?
       </Button>
     )}
   </div>

@@ -29,21 +29,21 @@ const Li = styled.li`
 class OrderedMovie extends React.Component {
   render() {
     const { orderedMovies, orders } = this.props;
-
+    const hasOrdered = orderedMovies.length
+      ? orderedMovies.map(movie => (
+          <Li key={movie.id}>
+            <MovieForList movie={movie} />
+            <WatchMovie
+              ordered={orders.includes(movie.id)}
+              price={movie.price}
+              onClick={() => this.props.dispatch(buyMovie(movie.id))}
+            />
+          </Li>
+        ))
+      : "hmm, belum ada film yang dibeli";
     return (
       <React.Fragment>
-        <Ul>
-          {orderedMovies.map(movie => (
-            <Li key={movie.id}>
-              <MovieForList movie={movie} />
-              <WatchMovie
-                ordered={orders.includes(movie.id)}
-                price={movie.price}
-                onClick={() => this.props.dispatch(buyMovie(movie.id))}
-              />
-            </Li>
-          ))}
-        </Ul>
+        <Ul>{hasOrdered}</Ul>
       </React.Fragment>
     );
   }

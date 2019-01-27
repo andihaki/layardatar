@@ -29,7 +29,7 @@ const initialState = {
   error: null,
   pages: [],
   currentPage: 0,
-  limitPage: 2,
+  limitPage: 4,
   movieId: "",
   casts: [],
   similars: [],

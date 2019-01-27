@@ -68,6 +68,16 @@ class MovieDetail extends React.Component {
           />
           <Reviews />
         </React.Suspense>
+        <p>
+          This page inspired by{" "}
+          <a
+            href="https://skempin.github.io/reactjs-tmdb-app/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            this
+          </a>
+        </p>
       </React.Fragment>
     );
   }
