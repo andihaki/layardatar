@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 import { Link } from "react-router-dom";
 
-import SearchIcon from "../../search-icon.svg";
+import SearchIcon from "../../assets/search-icon.svg";
 
 import { fetchSearch } from "../../redux/actions";
 
