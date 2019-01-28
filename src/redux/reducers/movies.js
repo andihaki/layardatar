@@ -18,7 +18,10 @@ import {
   BUY_MOVIE,
   FETCH_DETAILS_BEGIN,
   FETCH_DETAILS_SUCCESS,
-  FETCH_DETAILS_FAILURE
+  FETCH_DETAILS_FAILURE,
+  FETCH_SEARCH_BEGIN,
+  FETCH_SEARCH_SUCCESS,
+  FETCH_SEARCH_FAILURE
 } from "../actionTypes";
 
 // import dummy from "./dummy";
@@ -40,7 +43,8 @@ const initialState = {
   saldo: 100000,
   orders: [],
   details: {},
-  orderedMovies: []
+  orderedMovies: [],
+  search: []
 };
 
 export default function(state = initialState, action) {
@@ -208,7 +212,9 @@ export default function(state = initialState, action) {
     case BUY_MOVIE:
       const { movieId } = action.payload;
       const ordered = state.orders.includes(movieId);
-      const movie = state.movies.find(temp => temp.id === movieId);
+      const movie =
+        state.movies.find(temp => temp.id === movieId) ||
+        state.search.find(temp => temp.id === movieId);
       if (state.saldo < movie.price) {
         alert("saldo tidak cukup");
         return state;
@@ -221,6 +227,53 @@ export default function(state = initialState, action) {
         orders,
         saldo,
         orderedMovies
+      };
+    case FETCH_SEARCH_BEGIN:
+      return {
+        ...state,
+        loading: true,
+        error: null
+      };
+    case FETCH_SEARCH_SUCCESS:
+      console.log(FETCH_SEARCH_SUCCESS);
+      const search = action.payload.search.map((movie, index) => {
+        const slug = createSlug(movie.id)(movie.title);
+        let price = 3500;
+        const rating = movie.vote_average;
+
+        if (rating > 3 && rating <= 6) {
+          price = 8250;
+        }
+        if (rating > 6 && rating <= 8) {
+          price = 16350;
+        }
+        if (rating > 8 && rating <= 10) {
+          price = 21250;
+        }
+
+        return {
+          ...movie,
+          slug,
+          index,
+          price
+        };
+      });
+
+      console.log(search);
+
+      // console.log(search);
+      return {
+        ...state,
+        loading: false,
+        search,
+        currentPage: 1
+      };
+    case FETCH_SEARCH_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload.error,
+        search: []
       };
     default:
       return state;

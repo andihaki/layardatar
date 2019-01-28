@@ -6,3 +6,4 @@ export const API_SIMILAR = `https://api.themoviedb.org/3/movie/movie_id/similar?
 export const API_RECOMMENDATION = `https://api.themoviedb.org/3/movie/movie_id/recommendations?api_key=${API_KEY}&language=en-US&page=1`;
 export const API_REVIEWS = `https://api.themoviedb.org/3/movie/movie_id/reviews?api_key=${API_KEY}&language=en-US&page=1`;
 export const API_DETAILS = `https://api.themoviedb.org/3/movie/movie_id?api_key=${API_KEY}&language=en-US&page=1`;
+export const API_SEARCH = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=keyword&page=1&include_adult=false`;

@@ -39,6 +39,7 @@ const Cast = ({ casts }) => {
                     : ImageNotFound
                 }
                 alt={cast.name}
+                title={cast.name}
               />
               <figcaption>
                 <b>{!cast.profile_path && cast.name}</b> sebagai{" "}

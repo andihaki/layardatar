@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 
 import SearchIcon from "../search-icon.svg";
 
+import { fetchSearch } from "../redux/actions";
+
 const Ul = styled.ul`
   /* position: fixed; */
   display: flex;
@@ -51,27 +53,47 @@ const SearchInput = styled.input`
   font-size: 26px;
 `;
 
-const NavBar = ({ saldo }) => (
-  <Ul>
-    <Li>
-      <Link to="/">
-        <h3>TopFlix ~ Tokopedia Flix</h3>
-      </Link>
-    </Li>
-    <Li>
-      <div>
-        <SearchInput type="text" placeholder="cari film" />
-        <img src={SearchIcon} alt="x" />
-      </div>
-    </Li>
-    <Li>
-      <h5>Saldo: {saldo.toLocaleString("id-ID")}</h5>
-    </Li>
-    <Li>
-      <Link to="/filmku">Filmku</Link>
-    </Li>
-  </Ul>
-);
+const NavBar = ({ saldo, dispatch }) => {
+  // mungkin anti-pattern nih
+  // textInput must be declared here so the ref callback can refer to it
+  let textInput = null;
+
+  return (
+    <Ul>
+      <Li>
+        <Link to="/">
+          <h3>TopFlix ~ Tokopedia Flix</h3>
+        </Link>
+      </Li>
+      <Li>
+        <Link to="/search">
+          <SearchInput
+            type="text"
+            placeholder="cari film"
+            name="search"
+            ref={input => {
+              textInput = input;
+            }}
+          />
+          <img
+            src={SearchIcon}
+            alt="search"
+            onClick={() => {
+              dispatch(fetchSearch(textInput.value));
+              textInput.value = "";
+            }}
+          />
+        </Link>
+      </Li>
+      <Li>
+        <h5>Saldo: {saldo.toLocaleString("id-ID")}</h5>
+      </Li>
+      <Li>
+        <Link to="/filmku">Filmku</Link>
+      </Li>
+    </Ul>
+  );
+};
 
 const mapStateToProps = state => {
   return {
