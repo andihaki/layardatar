@@ -23,6 +23,8 @@ import {
 
 // import dummy from "./dummy";
 
+import createSlug from "../../utils/createSlug";
+
 const initialState = {
   movies: [],
   loading: false,
@@ -56,10 +58,7 @@ export default function(state = initialState, action) {
         .fill()
         .map((_, i) => i + 1);
       const movies = action.payload.movies.map((movie, index) => {
-        const slug = `${movie.id}-${movie.title
-          .replace(/[^A-Za-z0-9\s]/g, "")
-          .replace(/\s+/g, "-")
-          .toLowerCase()}`;
+        const slug = createSlug(movie.id)(movie.title);
         let price = 3500;
         const rating = movie.vote_average;
 
@@ -186,10 +185,8 @@ export default function(state = initialState, action) {
         price = 21250;
       }
 
-      const slug = `${details.id}-${details.title
-        .replace(/[^A-Za-z0-9\s]/g, "")
-        .replace(/\s+/g, "-")
-        .toLowerCase()}`;
+      const slug = createSlug(details.id)(details.title);
+
       details = {
         ...details,
         price,

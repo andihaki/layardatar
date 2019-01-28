@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 
 import { fetchDetails } from "../redux/actions";
 
+import createSlug from "../utils/createSlug";
+
 const Grid = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -23,11 +25,7 @@ const Recommendation = ({ recommendations, dispatch, onClick }) => {
         {recommendations.map(data => (
           <div key={data.id}>
             <Link
-              to={
-                data.id +
-                "-" +
-                data.title.replace(/[^A-Za-z0-9\s]/g, "").replace(/ /g, "-")
-              }
+              to={createSlug(data.id)(data.title)}
               // onClick={onClick(data.id).bind(this)}
               onClick={() => dispatch(fetchDetails(data.id))}
             >
