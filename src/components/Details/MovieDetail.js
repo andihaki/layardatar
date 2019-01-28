@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchMovies, buyMovie, fetchDetails } from "../redux/actions";
+import { fetchMovies, buyMovie, fetchDetails } from "../../redux/actions";
 // import Movie from "./Movie";
 
 // import WatchMovie from "./WatchMovie";
@@ -17,7 +17,7 @@ class MovieDetail extends React.Component {
   }
 
   render() {
-    const { movies, loading, orders, details } = this.props;
+    const { loading, orders, details } = this.props;
     // console.log(movies, error, loading);
 
     // if (error) {
@@ -25,7 +25,7 @@ class MovieDetail extends React.Component {
     // }
     // // hmm aneh disini, harus handle movies kosong
     if (loading) {
-      console.log("test", loading, movies, details);
+      // console.log("test", loading, movies, details);
       return <div>Menunggu kepastian...</div>;
     }
 
@@ -42,9 +42,9 @@ class MovieDetail extends React.Component {
     const Recommendation = React.lazy(() => import("./Recommendation"));
     const Reviews = React.lazy(() => import("./Reviews"));
     const Movie = React.lazy(() => import("./Movie"));
-    const WatchMovie = React.lazy(() => import("./WatchMovie"));
+    const WatchMovie = React.lazy(() => import("../WatchMovie"));
 
-    console.log(this.props.orderedMovies);
+    // console.log(this.props.orderedMovies);
 
     return (
       <React.Fragment>

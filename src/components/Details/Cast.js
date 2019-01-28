@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import styled from "styled-components";
 
-import ImageNotFound from "../image-not-found.svg";
+import ImageNotFound from "../../assets/image-not-found.svg";
 
 const Img = styled.img`
   border-radius: 10%;

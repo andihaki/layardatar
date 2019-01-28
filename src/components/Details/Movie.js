@@ -117,7 +117,7 @@ const Movie = ({ movie }) => {
   );
 };
 const mapStateToProps = state => {
-  console.log(state.movies.details);
+  // console.log(state.movies.details);
   return {
     movie: state.movies.details
   };

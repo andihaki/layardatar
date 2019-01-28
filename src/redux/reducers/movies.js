@@ -200,8 +200,8 @@ export default function(state = initialState, action) {
       // const movies = state.movies.concat(details);
       return {
         ...state,
-        details,
-        movies: state.movies.concat(details)
+        details
+        // movies: state.movies.concat(details)
       };
     case FETCH_DETAILS_FAILURE:
       return {
@@ -212,14 +212,18 @@ export default function(state = initialState, action) {
     case BUY_MOVIE:
       const { movieId } = action.payload;
       const ordered = state.orders.includes(movieId);
+
+      // movie didapat dari home page / hasil pencarian / rekomendasi
       const movie =
         state.movies.find(temp => temp.id === movieId) ||
-        state.search.find(temp => temp.id === movieId);
+        state.search.find(temp => temp.id === movieId) ||
+        state.details;
       if (state.saldo < movie.price) {
         alert("saldo tidak cukup");
         return state;
       }
       const orders = !ordered ? state.orders.concat(movieId) : state.orders;
+
       const saldo = state.saldo - movie.price;
       const orderedMovies = state.orderedMovies.concat(movie);
       return {
@@ -235,7 +239,7 @@ export default function(state = initialState, action) {
         error: null
       };
     case FETCH_SEARCH_SUCCESS:
-      console.log(FETCH_SEARCH_SUCCESS);
+      // console.log(FETCH_SEARCH_SUCCESS);
       const search = action.payload.search.map((movie, index) => {
         const slug = createSlug(movie.id)(movie.title);
         let price = 3500;
@@ -259,7 +263,7 @@ export default function(state = initialState, action) {
         };
       });
 
-      console.log(search);
+      // console.log(search);
 
       // console.log(search);
       return {

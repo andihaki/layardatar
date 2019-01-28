@@ -5,9 +5,9 @@ import styled from "styled-components";
 
 import { Link } from "react-router-dom";
 
-import { fetchDetails } from "../redux/actions";
+import { fetchDetails } from "../../redux/actions";
 
-import createSlug from "../utils/createSlug";
+import createSlug from "../../utils/createSlug";
 
 const Grid = styled.div`
   display: flex;

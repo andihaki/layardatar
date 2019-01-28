@@ -7,7 +7,7 @@ import { fetchMovies, buyMovie } from "../redux/actions";
 
 import WatchMovie from "./WatchMovie";
 
-import Pagination from "./Pagination";
+import Pagination from "./UI/Pagination";
 
 const Ul = styled.ul`
   list-style: none;

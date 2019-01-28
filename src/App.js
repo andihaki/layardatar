@@ -3,12 +3,12 @@ import React, { Component } from "react";
 import MovieList from "./components/MovieList";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import MovieDetail from "./components/MovieDetail";
+import MovieDetail from "./components/Details/MovieDetail";
 
-import NavBar from "./components/NavBar";
-import OrderedMovie from "./components/OrderedMovie";
+import NavBar from "./components/UI/NavBar";
+import OrderedMovie from "./components/Ordered/OrderedMovie";
 
-import { default as Search } from "./components/search/MovieList";
+import { default as Search } from "./components/Search/MovieList";
 
 function NoMatch({ location }) {
   return (
@@ -41,6 +41,7 @@ class App extends Component {
                 if (!/^\d+-.*/.test(match.params.id)) {
                   return <NoMatch location={match.params.id} />;
                 }
+                window.scrollTo(0, 0); // scroll to top
                 return <MovieDetail match={match} />;
               }}
             />

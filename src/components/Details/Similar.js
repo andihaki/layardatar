@@ -5,7 +5,7 @@ const Similar = ({ similars }) => {
   // console.log(similars);
   return (
     <div>
-      <h3>Film Terkait:</h3>
+      <h3>Film Serupa:</h3>
       {similars.map(data => (
         <div key={data.id}>{data.title}</div>
       ))}

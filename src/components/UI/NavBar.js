@@ -5,9 +5,9 @@ import { connect } from "react-redux";
 
 import { Link } from "react-router-dom";
 
-import SearchIcon from "../search-icon.svg";
+import SearchIcon from "../../search-icon.svg";
 
-import { fetchSearch } from "../redux/actions";
+import { fetchSearch } from "../../redux/actions";
 
 const Ul = styled.ul`
   /* position: fixed; */
@@ -62,7 +62,7 @@ const NavBar = ({ saldo, dispatch }) => {
     <Ul>
       <Li>
         <Link to="/">
-          <h3>TopFlix ~ Tokopedia Flix</h3>
+          <h3>TokoFlix</h3>
         </Link>
       </Li>
       <Li>

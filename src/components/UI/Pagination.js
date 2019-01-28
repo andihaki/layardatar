@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { changePage } from "../redux/actions";
+import { changePage } from "../../redux/actions";
 
 import { NavLink } from "react-router-dom";
 

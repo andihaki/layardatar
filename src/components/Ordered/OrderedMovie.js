@@ -1,11 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import MovieForList from "./MovieForList";
+import MovieForList from "../MovieForList";
 import styled from "styled-components";
 
-import { buyMovie } from "../redux/actions";
+import { buyMovie } from "../../redux/actions";
 
-import WatchMovie from "./WatchMovie";
+import WatchMovie from "../WatchMovie";
 
 const Ul = styled.ul`
   list-style: none;
