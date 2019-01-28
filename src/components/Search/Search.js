@@ -53,7 +53,7 @@ class Search extends React.Component {
               <WatchMovie
                 ordered={orders.includes(movie.id)}
                 price={movie.price}
-                onClick={() => this.props.dispatch(buyMovie(movie.id))}
+                onClick={() => this.props.dispatch(buyMovie(movie))}
               />
             </Li>
           ))}

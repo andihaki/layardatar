@@ -1,8 +1,4 @@
 import {
-  FETCH_MOVIES_BEGIN,
-  FETCH_MOVIES_SUCCESS,
-  FETCH_MOVIES_FAILURE,
-  CHANGE_PAGE,
   FETCH_CAST_BEGIN,
   FETCH_CAST_SUCCESS,
   FETCH_CAST_FAILURE,
@@ -17,42 +13,16 @@ import {
   FETCH_REVIEWS_FAILURE,
   FETCH_DETAILS_BEGIN,
   FETCH_DETAILS_SUCCESS,
-  FETCH_DETAILS_FAILURE,
-  BUY_MOVIE,
-  FETCH_SEARCH_BEGIN,
-  FETCH_SEARCH_SUCCESS,
-  FETCH_SEARCH_FAILURE
+  FETCH_DETAILS_FAILURE
 } from "./actionTypes";
 
 import {
-  API,
   API_CAST,
   API_SIMILAR,
   API_RECOMMENDATION,
   API_REVIEWS,
-  API_DETAILS,
-  API_SEARCH
+  API_DETAILS
 } from "../constants";
-
-// home page
-export const fetchMoviesBegin = () => ({
-  type: FETCH_MOVIES_BEGIN
-});
-
-export const fetchMoviesSuccess = movies => ({
-  type: FETCH_MOVIES_SUCCESS,
-  payload: { movies }
-});
-
-export const fetchMoviesFailure = error => ({
-  type: FETCH_MOVIES_FAILURE,
-  payload: { error }
-});
-
-export const changePage = activePage => ({
-  type: CHANGE_PAGE,
-  payload: { activePage }
-});
 
 // movie CAST
 export const fetchCastBegin = () => ({
@@ -129,46 +99,12 @@ export const fetchDetailsFailure = error => ({
   payload: { error }
 });
 
-export const buyMovie = movie => ({
+export const buyMovie = movieId => ({
   type: BUY_MOVIE,
-  payload: { movie }
-});
-
-// movie SEARCH
-export const fetchSearchBegin = () => ({
-  type: FETCH_SEARCH_BEGIN
-});
-
-export const fetchSearchSuccess = search => ({
-  type: FETCH_SEARCH_SUCCESS,
-  payload: { search }
-});
-
-export const fetchSearchFailure = error => ({
-  type: FETCH_SEARCH_FAILURE,
-  payload: { error }
+  payload: { movieId }
 });
 
 // async
-export const fetchMovies = () => {
-  return dispatch => {
-    dispatch(fetchMoviesBegin());
-    return fetch(API)
-      .then(response => {
-        if (!response.ok) {
-          throw Error(response.statusText);
-        }
-        return response;
-      })
-      .then(response => response.json())
-      .then(data => {
-        dispatch(fetchMoviesSuccess(data.results));
-        return data.results;
-      })
-      .catch(error => dispatch(fetchMoviesFailure(error)));
-  };
-};
-
 export const fetchCast = movieId => {
   return dispatch => {
     dispatch(fetchCastBegin());
@@ -182,7 +118,6 @@ export const fetchCast = movieId => {
       })
       .then(response => response.json())
       .then(data => {
-        // console.log(data.cast);
         dispatch(fetchCastSuccess(data.cast));
 
         return data.cast;
@@ -203,7 +138,6 @@ export const fetchSimilar = movieId => {
       })
       .then(response => response.json())
       .then(data => {
-        // console.log(data.results);
         dispatch(fetchSimilarSuccess(data.results));
 
         return data.results;
@@ -224,7 +158,6 @@ export const fetchRecommendation = movieId => {
       })
       .then(response => response.json())
       .then(data => {
-        // console.log(data.results);
         dispatch(fetchRecommendationSuccess(data.results));
 
         return data.results;
@@ -233,7 +166,6 @@ export const fetchRecommendation = movieId => {
   };
 };
 export const fetchReviews = movieId => {
-  // console.log(movieId);
   return dispatch => {
     dispatch(fetchReviewsBegin());
 
@@ -246,7 +178,6 @@ export const fetchReviews = movieId => {
       })
       .then(response => response.json())
       .then(data => {
-        // console.log(data.results);
         dispatch(fetchReviewsSuccess(data.results));
 
         return data.results;
@@ -272,34 +203,10 @@ export const fetchDetails = movieId => {
       })
       .then(response => response.json())
       .then(data => {
-        // console.log(data);
         dispatch(fetchDetailsSuccess(data));
 
         return data;
       })
       .catch(error => dispatch(fetchDetailsFailure(error)));
-  };
-};
-
-export const fetchSearch = keyword => {
-  // console.log(FETCH_SEARCH_BEGIN, keyword);
-  return dispatch => {
-    dispatch(fetchSearchBegin());
-
-    return fetch(API_SEARCH.replace("keyword", keyword))
-      .then(response => {
-        if (!response.ok) {
-          throw Error(response.statusText);
-        }
-        return response;
-      })
-      .then(response => response.json())
-      .then(data => {
-        // console.log(data.results);
-        dispatch(fetchSearchSuccess(data.results));
-
-        return data.results;
-      })
-      .catch(error => dispatch(fetchSearchFailure(error)));
   };
 };

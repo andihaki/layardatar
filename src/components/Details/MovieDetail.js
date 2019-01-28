@@ -59,7 +59,7 @@ class MovieDetail extends React.Component {
           <WatchMovie
             ordered={orders.includes(movieId)}
             price={Object.keys(details).length ? details.price : 3500}
-            onClick={() => this.props.dispatch(buyMovie(movieId))}
+            onClick={() => this.props.dispatch(buyMovie(details))}
           />
           <Cast />
           <Similar />
