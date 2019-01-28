@@ -8,7 +8,7 @@ import MovieDetail from "./components/Details/MovieDetail";
 import NavBar from "./components/UI/NavBar";
 import OrderedMovie from "./components/Ordered/OrderedMovie";
 
-import { default as Search } from "./components/Search/MovieList";
+import Search from "./components/Search/Search";
 
 function NoMatch({ location }) {
   return (

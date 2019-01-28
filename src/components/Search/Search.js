@@ -26,7 +26,7 @@ const Li = styled.li`
   }
 `;
 
-class MovieList extends React.Component {
+class Search extends React.Component {
   componentDidMount() {
     this.props.movies.length || this.props.dispatch(fetchMovies());
   }
@@ -73,4 +73,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(MovieList);
+export default connect(mapStateToProps)(Search);
