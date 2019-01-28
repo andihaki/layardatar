@@ -119,7 +119,7 @@ const Movie = ({ movie }) => {
 const mapStateToProps = state => {
   // console.log(state.movies.details);
   return {
-    movie: state.movies.details
+    movie: state.details.details
   };
 };
 export default connect(mapStateToProps)(Movie);

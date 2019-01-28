@@ -66,10 +66,10 @@ class Search extends React.Component {
 const mapStateToProps = state => {
   // console.log(state.movies.orders);
   return {
-    movies: state.movies.search,
-    loading: state.movies.loading,
-    error: state.movies.error,
-    orders: state.movies.orders
+    movies: state.search.search,
+    loading: state.search.loading,
+    error: state.search.error,
+    orders: state.ordered.orders
   };
 };
 

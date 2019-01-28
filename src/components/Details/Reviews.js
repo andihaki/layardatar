@@ -15,7 +15,7 @@ const Reviews = ({ reviews }) => {
 
 const mapStateToProps = state => {
   return {
-    reviews: state.movies.reviews
+    reviews: state.details.reviews
   };
 };
 

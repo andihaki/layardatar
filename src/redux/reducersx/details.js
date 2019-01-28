@@ -29,7 +29,7 @@ export default function(state = initialState, action) {
       };
     case actionTypes.FETCH_SIMILAR_BEGIN:
       return { ...state, similars: [] };
-    case FETCH_SIMILAR_SUCCESS:
+    case actionTypes.FETCH_SIMILAR_SUCCESS:
       const similars = action.payload.similars.length
         ? action.payload.similars
         : [{ id: 0, title: "tidak ada informasi film terkait" }];

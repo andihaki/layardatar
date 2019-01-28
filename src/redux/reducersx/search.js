@@ -1,37 +1,23 @@
-import {
-  FETCH_MOVIES_BEGIN,
-  FETCH_MOVIES_SUCCESS,
-  FETCH_MOVIES_FAILURE,
-  CHANGE_PAGE
-} from "../actionTypes";
+import * as actionTypes from "../actions/actionTypes";
 
 import createSlug from "../../utils/createSlug";
 
 const initialState = {
-  movies: [],
   loading: false,
   error: null,
-  pages: [],
-  currentPage: 0,
-  limitPage: 4,
-  movieId: ""
+  search: []
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case FETCH_MOVIES_BEGIN:
+    case actionTypes.FETCH_SEARCH_BEGIN:
       return {
         ...state,
         loading: true,
         error: null
       };
-    case FETCH_MOVIES_SUCCESS:
-      const pages = Array(
-        Math.ceil(action.payload.movies.length / state.limitPage)
-      )
-        .fill()
-        .map((_, i) => i + 1);
-      const movies = action.payload.movies.map((movie, index) => {
+    case actionTypes.FETCH_SEARCH_SUCCESS:
+      const search = action.payload.search.map((movie, index) => {
         const slug = createSlug(movie.id)(movie.title);
         let price = 3500;
         const rating = movie.vote_average;
@@ -57,22 +43,15 @@ export default function(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        movies,
-        pages,
+        search,
         currentPage: 1
       };
-    case FETCH_MOVIES_FAILURE:
+    case actionTypes.FETCH_SEARCH_FAILURE:
       return {
         ...state,
         loading: false,
         error: action.payload.error,
-        movies: []
-      };
-    case CHANGE_PAGE:
-      return {
-        ...state,
-        currentPage: action.payload.activePage,
-        movieId: ""
+        search: []
       };
     default:
       return state;

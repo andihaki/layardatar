@@ -8,7 +8,7 @@ import { fetchMovies, buyMovie, fetchDetails } from "../../redux/actions";
 class MovieDetail extends React.Component {
   componentDidMount() {
     // console.log(this.props.movies.length);
-    this.props.movies.length || this.props.dispatch(fetchMovies());
+    this.props.details.length || this.props.dispatch(fetchMovies());
 
     const queryParams = this.props.match.params.id;
     const movieId = parseInt(queryParams.split("-")[0]);
@@ -86,16 +86,16 @@ class MovieDetail extends React.Component {
 const mapStateToProps = state => {
   // console.log(state);
   return {
-    movies: state.movies.movies,
-    loading: state.movies.loading,
-    error: state.movies.error,
-    casts: state.movies.casts,
-    similars: state.movies.similars,
-    recommendations: state.movies.recommendations,
-    reviews: state.movies.reviews,
-    orders: state.movies.orders,
-    details: state.movies.details,
-    orderedMovies: state.movies.orderedMovies
+    // movies: state.movies.movies,
+    loading: state.details.loading,
+    error: state.details.error,
+    casts: state.details.casts,
+    similars: state.details.similars,
+    recommendations: state.details.recommendations,
+    reviews: state.details.reviews,
+    orders: state.ordered.orders,
+    details: state.details.details,
+    orderedMovies: state.ordered.orderedMovies
   };
 };
 

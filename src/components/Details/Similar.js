@@ -15,7 +15,7 @@ const Similar = ({ similars }) => {
 
 const mapStateToProps = state => {
   return {
-    similars: state.movies.similars
+    similars: state.details.similars
   };
 };
 

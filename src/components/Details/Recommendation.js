@@ -43,7 +43,7 @@ const Recommendation = ({ recommendations, dispatch, onClick }) => {
 
 const mapStateToProps = state => {
   return {
-    recommendations: state.movies.recommendations
+    recommendations: state.details.recommendations
   };
 };
 

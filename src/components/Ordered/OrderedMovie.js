@@ -52,8 +52,8 @@ class OrderedMovie extends React.Component {
 const mapStateToProps = state => {
   // console.log(state.movies.orders);
   return {
-    orderedMovies: state.movies.orderedMovies,
-    orders: state.movies.orders
+    orderedMovies: state.ordered.orderedMovies,
+    orders: state.ordered.orders
   };
 };
 

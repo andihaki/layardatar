@@ -55,7 +55,7 @@ const Cast = ({ casts }) => {
 
 const mapStateToProps = state => {
   return {
-    casts: state.movies.casts
+    casts: state.details.casts
   };
 };
 

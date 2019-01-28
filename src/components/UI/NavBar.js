@@ -97,7 +97,7 @@ const NavBar = ({ saldo, dispatch }) => {
 
 const mapStateToProps = state => {
   return {
-    saldo: state.movies.saldo
+    saldo: state.ordered.saldo
   };
 };
 

@@ -85,7 +85,7 @@ const mapStateToProps = state => {
     currentPage: state.movies.currentPage,
     limitPage: state.movies.limitPage,
     movieId: state.movies.movieId,
-    orders: state.movies.orders
+    orders: state.ordered.orders
   };
 };
 
